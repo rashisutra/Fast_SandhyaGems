@@ -1,0 +1,46 @@
+Refined Build Instructions for Sandhya Gems Corner Landing Page:
+
+Data Source Fix (CORS Bypass): The current browser-side fetch for products is blocked by CORS. You must move the fetch logic to the Server-Side (Astro .astro file script). Fetch exactly 8 products from this specific collection: https://sandhyagems.in/collections/best-seller/products.json?limit=8.
+
+Product Card Logic: > - Primary Action: Create a 'Quick Buy' button for each card that links directly to the Shopify checkout: https://sandhyagems.in/cart/${variants[0].id}:1.
+
+Secondary Action: Ensure the 'View Full Collection' button at the bottom of the grid links to https://sandhyagems.in/collections/all.
+
+On-Page SEO & Metadata:
+
+Set the <title> to: "Natural Certified Gemstones in Kolkata | Sandhya Gems Corner".
+
+Set the <h1> to: "Certified Gemstones in Kolkata".
+
+Add a <meta name="description"> that mentions: "Trusted gemstone shop in New Barrackpore since 2011. Certified Panna, Moonga, and Manik stones."
+
+Local Business Schema (JSON-LD): Insert this script tag into the <head>:
+
+HTML
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "JewelryStore",
+  "name": "Sandhya Gems Corner",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Shop No 2A, New Barrackpore Post Office Market",
+    "addressLocality": "Kolkata",
+    "postalCode": "700131",
+    "addressRegion": "West Bengal"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 22.6983,
+    "longitude": 88.4371
+  },
+  "openingHours": "Mo,We,Fr,Sa,Su 10:00-21:30, Tu,Th 10:00-15:30",
+  "telephone": "+919007746465"
+}
+</script>
+Visual Improvements: > - Use Tailwind CSS to implement a Deep Blue (#1a365d) and Gold (#d4af37) theme.
+
+Add a Floating WhatsApp Button (green bubble) on the bottom right that links to https://wa.me/919007746465?text=I%20am%20interested%20in%20a%20gemstone%20from%20your%20Kolkata%20store.
+
+Speed Optimization: Ensure all images have explicit width and height to prevent layout shifts (CLS).

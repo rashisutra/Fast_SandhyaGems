@@ -128,7 +128,7 @@ function HeroSection() {
       
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-          Certified Gemstones in Kolkata & West Bengal
+          Certified Gemstones in Kolkata
         </h1>
         <p className="text-lg md:text-xl text-primary mb-6 max-w-2xl mx-auto font-medium">
           {BUSINESS_INFO.tagline}
@@ -272,7 +272,7 @@ function ProductsSection() {
                           data-testid={`button-buy-${product.id}`}
                         >
                           <ShoppingBag className="w-4 h-4 mr-1" />
-                          Buy Now
+                          Quick Buy
                         </a>
                       </Button>
                     </CardContent>
