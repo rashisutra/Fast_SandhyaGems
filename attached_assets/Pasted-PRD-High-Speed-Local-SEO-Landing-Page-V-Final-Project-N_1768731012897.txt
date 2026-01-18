@@ -1,0 +1,17 @@
+PRD: High-Speed Local SEO Landing Page (V. Final)Project Name: Sandhya Gems Corner - Kolkata Local AcceleratorPrimary Goal: Rank #1 in Kolkata Map Pack & achieve 100/100 Mobile PageSpeed.1. Project ObjectiveBuild a high-performance, single-page landing page hosted on a Replit subdomain (fast.sandhyagems.in) that acts as a "speed-first" bridge to the main Shopify store. It must convince local customers of the shop's physical presence in New Barrackpore while providing a frictionless mobile buying experience.2. Technical StackFramework: Astro (Static Site Generator) for zero-JS by default.Styling: Tailwind CSS (v3+).Data Sourcing: Dynamic fetch from https://sandhyagems.in/products.json?limit=250.Optimization: WebP image conversion, preloaded LCP images, and deferred non-critical assets.3. Page Architecture & UI FlowA. Sticky Header (The "Trust Bar")Content: Phone icon + "+91 9007746465" and "📍 Visit our New Barrackpore Store."Function: Stays fixed at the top on mobile.B. Hero Section (LCP Optimized)Headline: "Certified & Natural Gemstones in Kolkata"Subtext: "Trusted for 24+ Years. Visit us at New Barrackpore Post Office Market for genuine Vedic gemstones."Primary CTA: "WhatsApp for Free Consultation" (Links to wa.me/919007746465).C. Featured Products (Top 8)Logic: Fetch data from products.json. Automatically display the first 8 products found (filtering for Ruby, Emerald, Red Coral, Yellow Sapphire, etc.).Card UI: High-quality image, Product Name, Sale Price, and two buttons:"Quick Buy" (Primary): Links to https://sandhyagems.in/cart/{variant_id}:1 (Direct to Checkout)."Details": Links to the original product page.D. The "Show More" BridgeCTA Button: "View Full Collection (100+ Gems)"Target: https://sandhyagems.in/collections/allStyle: Large, high-contrast button below the grid.E. Local SEO & Maps SectionAddress: Ground Floor, Shop No 2A, New Barrackpore Post Office Market, Station Road, Kolkata - 700131.Landmark: "Below New Barrackpore Post Office."Lite Map Embed: A static image of the map (pre-rendered) that links to your Google My Business location.4. Technical Specifications for Replit AgentThe "Master Prompt" for Replit Agent:"Build a high-speed Astro/Tailwind landing page for 'Sandhya Gems Corner'.Data Fetching: Fetch https://sandhyagems.in/products.json?limit=250. Extract titles, prices, images, and first variant IDs.Initial State: Display only the top 8 products (Ruby, Emerald, Panna, etc.) in a 2-column mobile grid.The 'Buy' Logic: Direct-checkout links: https://sandhyagems.in/cart/[variant_id]:1.SEO: Embed 'JewelryStore' JSON-LD schema with address: 'New Barrackpore Post Office Market, Kolkata 700131'.Performance: No large JS bundles. Use WebP for all images. LCP must be < 1.0s.Local Context: Prominently feature the 'New Barrackpore' location and a floating WhatsApp button."5. Local Business Data (Copy/Paste to Header)HTML<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "JewelryStore",
+  "name": "Sandhya Gems Corner",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Shop No 2A, New Barrackpore Post Office Market",
+    "addressLocality": "Kolkata",
+    "postalCode": "700131",
+    "addressRegion": "WB"
+  },
+  "openingHours": "Mo-Su 10:00-21:30",
+  "telephone": "+919007746465"
+}
+</script>
+6. Business Hours DetailDayHoursMon, Wed, Fri - Sun10:00 AM – 9:30 PMTue, Thu10:00 AM – 3:30 PM
