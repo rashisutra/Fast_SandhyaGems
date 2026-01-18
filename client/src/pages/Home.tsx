@@ -116,15 +116,6 @@ function HeroSection() {
           backgroundPosition: 'center',
         }}
       />
-      <img 
-        src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80"
-        className="sr-only"
-        alt="Hero Gemstone"
-        width={1200}
-        height={800}
-        loading="eager"
-        fetchPriority="high"
-      />
       <div className="absolute inset-0 bg-gradient-to-t from-[#1a365d] via-[#1a365d]/70 to-[#1a365d]/40" />
       
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
@@ -245,11 +236,8 @@ function ProductsSection() {
                   ? `https://sandhyagems.in/cart/${variantId}:1`
                   : `${BUSINESS_INFO.shopifyUrl}/products/${product.handle}`;
                 
-                // Optimize Shopify images: request 400x400 and webp format via URL params
-                const rawImageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Gemstone';
-                const imageUrl = rawImageUrl.includes('cdn.shopify.com') 
-                  ? rawImageUrl.replace(/\.(png|jpg|jpeg)\?/, '_400x400.webp?')
-                  : rawImageUrl;
+                // Use original Shopify image URLs - they're already optimized by Shopify CDN
+                const imageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Gemstone';
                 
                 return (
                   <Card key={product.id} className="overflow-hidden group" data-testid={`product-card-${product.id}`}>
