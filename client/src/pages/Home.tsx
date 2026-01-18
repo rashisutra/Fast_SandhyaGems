@@ -123,8 +123,11 @@ function HeroSection() {
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
           Certified Gemstones in Kolkata
         </h1>
-        <p className="text-lg md:text-xl text-primary mb-6 max-w-2xl mx-auto font-medium">
+        <p className="text-lg md:text-xl text-primary mb-4 max-w-2xl mx-auto font-medium">
           {BUSINESS_INFO.tagline}
+        </p>
+        <p className="text-sm text-gray-300 mb-4">
+          Best Panna, Moonga & Manik stones in North 24 Parganas
         </p>
         <div className="flex items-center justify-center gap-2 text-gray-200 mb-8">
           <MapPin className="w-5 h-5 flex-shrink-0" />
@@ -257,8 +260,12 @@ function ProductsSection() {
                       <h3 className="font-medium text-sm line-clamp-2 mb-1" title={product.title}>
                         {product.title}
                       </h3>
-                      <p className="text-primary font-bold text-base mb-2">
+                      <p className="text-primary font-bold text-base mb-1">
                         {formatPrice(product.variants[0]?.price || "0")}
+                      </p>
+                      <p className="text-xs text-green-600 font-medium mb-2 flex items-center gap-1">
+                        <Store className="w-3 h-3" />
+                        In-Store Pickup Available
                       </p>
                       <Button asChild size="sm" className="w-full">
                         <a 
