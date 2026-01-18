@@ -20,9 +20,9 @@ interface ShopifyResponse {
 const BUSINESS_INFO = {
   name: "Sandhya Gems Corner",
   tagline: "Your Trusted Neighborhood Gemstone Dealer Since Generations",
-  phone: "9007746465",
-  phoneDisplay: "+91 90077-46465",
-  whatsapp: "919007746465",
+  phone: "8240673685",
+  phoneDisplay: "+91 82406-73685",
+  whatsapp: "918240673685",
   address: {
     street: "Shop No 2A, New Barrackpore Post Office Market",
     city: "Kolkata",
