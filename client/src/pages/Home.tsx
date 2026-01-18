@@ -18,10 +18,10 @@ interface ShopifyResponse {
 
 const BUSINESS_INFO = {
   name: "Sandhya Gems Corner",
-  tagline: "Your Trusted Neighborhood Jeweler Since Generations",
-  phone: "+919007746465",
-  phoneDisplay: "+91 9007-746-465",
-  whatsapp: "919007746465",
+  tagline: "Your Trusted Neighborhood Gemstone Dealer Since Generations",
+  phone: "8240673685",
+  phoneDisplay: "+91 82406-73685",
+  whatsapp: "8240673685",
   address: {
     street: "Shop No 2A, New Barrackpore Post Office Market",
     city: "Kolkata",
@@ -32,6 +32,7 @@ const BUSINESS_INFO = {
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Sandhya+Gems+Corner+New+Barrackpore+Post+Office+Market+Kolkata+700131",
   staticMapUrl: "https://maps.googleapis.com/maps/api/staticmap?center=22.7925,88.3765&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7C22.7925,88.3765&key=placeholder",
   shopifyUrl: "https://sandhyagems.in",
+  collectionUrl: "https://sandhyagems.in/collections/all",
   hours: [
     { day: "Monday", hours: "10:00 AM - 9:30 PM", isShort: false },
     { day: "Tuesday", hours: "10:00 AM - 3:30 PM", isShort: true },
@@ -198,7 +199,7 @@ function ProductsSection() {
     <section id="products" className="py-12 md:py-16 bg-background scroll-mt-16">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">Our Collection</h2>
-        <p className="text-center text-muted-foreground mb-8">Handpicked jewelry for every occasion</p>
+        <p className="text-center text-muted-foreground mb-8">Handpicked gemstones for every occasion</p>
         
         {isLoading && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
@@ -234,7 +235,7 @@ function ProductsSection() {
                 const buyNowUrl = variantId 
                   ? `https://sandhyagems.in/cart/${variantId}:1`
                   : `${BUSINESS_INFO.shopifyUrl}/products/${product.handle}`;
-                const imageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Jewelry';
+                const imageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Gemstone';
                 
                 return (
                   <Card key={product.id} className="overflow-hidden group" data-testid={`product-card-${product.id}`}>
@@ -271,7 +272,7 @@ function ProductsSection() {
             </div>
             <div className="text-center mt-8">
               <Button asChild size="lg">
-                <a href={BUSINESS_INFO.shopifyUrl} target="_blank" rel="noopener noreferrer" data-testid="button-view-all">
+                <a href={BUSINESS_INFO.collectionUrl} target="_blank" rel="noopener noreferrer" data-testid="button-view-all">
                   <ExternalLink className="w-5 h-5 mr-2" />
                   View All Products
                 </a>
@@ -451,13 +452,13 @@ function CTASection() {
           Explore Our Full Collection
         </h2>
         <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-          Browse our extensive collection of gold, silver, and diamond jewelry. 
-          From traditional designs to contemporary pieces, find the perfect jewelry for every occasion.
+          Browse our extensive collection of certified and natural gemstones. 
+          From traditional cuts to rare pieces, find the perfect gemstone for every occasion.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild size="lg" className="min-w-[200px]">
             <a 
-              href={BUSINESS_INFO.shopifyUrl} 
+              href={BUSINESS_INFO.collectionUrl} 
               target="_blank" 
               rel="noopener noreferrer"
               data-testid="button-shop-online"
@@ -518,7 +519,7 @@ function Footer() {
 }
 
 function WhatsAppButton() {
-  const message = encodeURIComponent("Hi! I'm interested in your jewelry collection. Can you help me?");
+  const message = encodeURIComponent("I am interested in a gemstone from your store.");
   const whatsappUrl = `https://wa.me/${BUSINESS_INFO.whatsapp}?text=${message}`;
   
   return (

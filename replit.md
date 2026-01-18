@@ -32,13 +32,13 @@ shared/
 ## Business Information
 - **Name**: Sandhya Gems Corner
 - **Address**: Shop No 2A, New Barrackpore Post Office Market, Kolkata 700131
-- **Phone**: +91-9007746465
+- **Phone**: +91-8240673685
 - **Hours**: 
   - Mon, Wed, Fri-Sun: 10:00 AM - 9:30 PM
   - Tue, Thu: 10:00 AM - 3:30 PM (Short days)
 
 ## SEO Features
-- Schema.org JewelryStore structured data
+- Schema.org JewelryStore structured data (mapped to Gemstone Dealer)
 - Open Graph meta tags
 - Geo meta tags for local SEO
 - Canonical URL
