@@ -1,4 +1,5 @@
-import { Phone, MapPin, Clock, ExternalLink, Navigation, Store, Award, Users, ChevronDown, ShoppingBag, MessageCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Phone, MapPin, Clock, ExternalLink, Navigation, Store, Award, Users, ChevronDown, ShoppingBag, MessageCircle, X } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -540,6 +541,77 @@ function WhatsAppButton() {
   );
 }
 
+function WelcomePopup() {
+  const [isVisible, setIsVisible] = useState(false);
+  const whatsappUrl = `https://wa.me/${BUSINESS_INFO.whatsapp}?text=Hi!%20I%20want%20to%20learn%20more%20about%20gemstones.`;
+
+  useEffect(() => {
+    const hasSeenPopup = sessionStorage.getItem('hasSeenWelcomePopup');
+    if (!hasSeenPopup) {
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleClose = () => {
+    setIsVisible(false);
+    sessionStorage.setItem('hasSeenWelcomePopup', 'true');
+  };
+
+  const handleConnect = () => {
+    sessionStorage.setItem('hasSeenWelcomePopup', 'true');
+    window.open(whatsappUrl, '_blank');
+    setIsVisible(false);
+  };
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+      <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 relative">
+        <button
+          onClick={handleClose}
+          className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+          aria-label="Close popup"
+          data-testid="button-close-popup"
+        >
+          <X className="w-5 h-5" />
+        </button>
+        
+        <div className="text-center">
+          <div className="w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center mx-auto mb-4">
+            <SiWhatsapp className="w-8 h-8 text-white" />
+          </div>
+          <h3 className="text-xl font-bold text-[#1a365d] mb-2">
+            Want to Learn About Gemstones?
+          </h3>
+          <p className="text-gray-600 text-sm mb-6">
+            Connect with our gemstone experts on WhatsApp for personalized guidance on finding the perfect stone for you.
+          </p>
+          <Button
+            onClick={handleConnect}
+            className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white"
+            size="lg"
+            data-testid="button-connect-whatsapp"
+          >
+            <SiWhatsapp className="w-5 h-5 mr-2" />
+            Connect on WhatsApp
+          </Button>
+          <button
+            onClick={handleClose}
+            className="mt-3 text-sm text-gray-500 hover:text-gray-700"
+            data-testid="button-maybe-later"
+          >
+            Maybe later
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -555,6 +627,7 @@ export default function Home() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <WelcomePopup />
     </div>
   );
 }
