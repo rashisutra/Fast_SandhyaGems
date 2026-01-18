@@ -1,0 +1,53 @@
+1. Performance & Page Speed Audit
+Since you are using Replit, the server is fast, but the frontend code likely has these "speed killers":
+
+Cumulative Layout Shift (CLS): Check if your product images have explicit width and height attributes. Without them, the page "jumps" when images load, which fails Core Web Vitals.
+
+Image Optimization: Ensure you are using WebP or AVIF formats. If the Replit Agent used .jpg or .png, your LCP (Largest Contentful Paint) will be too high.
+
+Resource Blocking: Check the <head> for unnecessary scripts. For a landing page, you should have zero external JS libraries except for your own minimal logic.
+
+2. On-Page SEO Audit (Kolkata Targeting)
+To beat your competitors in the Kolkata/North 24 Parganas market, your SEO needs to be "Surgical":
+
+The H1 Tag: It should be exactly: <h1>Natural Certified Gemstones in Kolkata | Sandhya Gems Corner</h1>. Don't let the Agent use a generic "Welcome" or "Home" title.
+
+Meta Description: Ensure you have a meta description that includes "New Barrackpore," "Certified Panna," and "Red Coral."
+
+Example: "Buy 100% natural and certified gemstones at Sandhya Gems Corner, Kolkata. Located in New Barrackpore, we specialize in Panna, Moonga, and Manik stones."
+
+Alt Text: Every product image must have alt text like alt="Certified Red Coral Moonga in Kolkata". This helps you show up in Google Image Search.
+
+3. Missing "Business Logic" Improvements
+Since you are a software engineer, you can check the browser console (F12) for these issues:
+
+The CORS Fix: If your product grid is empty, your Shopify store is blocking the Replit domain. You must move the fetch logic to the server-side (Astro .astro file or a simple Node.js endpoint) so the browser doesn't block the request.
+
+Shopify Permalinks: Verify that clicking "Quick Buy" takes you to sandhyagems.in/cart/VARIANT_ID:1. If it takes you to a general product page, you are losing the "Fast Checkout" advantage.
+
+WhatsApp "Smart Link": Your WhatsApp button should include a pre-filled message: https://wa.me/919007746465?text=I'm%20interested%20in%20a%20gemstone%20from%20your%20Kolkata%20store.
+
+4. Critical "Local SEO" Schema
+The Replit Agent likely missed the JSON-LD Schema. This is what actually moves your ranking in Google Maps. Add this to your header:
+
+HTML
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "JewelryStore",
+  "name": "Sandhya Gems Corner",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Shop No 2A, Post Office Market, Station Road",
+    "addressLocality": "New Barrackpore, Kolkata",
+    "postalCode": "700131",
+    "addressRegion": "West Bengal"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 22.6983,
+    "longitude": 88.4371
+  }
+}
+</script>

@@ -19,9 +19,9 @@ interface ShopifyResponse {
 const BUSINESS_INFO = {
   name: "Sandhya Gems Corner",
   tagline: "Your Trusted Neighborhood Gemstone Dealer Since Generations",
-  phone: "8240673685",
-  phoneDisplay: "+91 82406-73685",
-  whatsapp: "8240673685",
+  phone: "9007746465",
+  phoneDisplay: "+91 90077-46465",
+  whatsapp: "919007746465",
   address: {
     street: "Shop No 2A, New Barrackpore Post Office Market",
     city: "Kolkata",
@@ -30,7 +30,7 @@ const BUSINESS_INFO = {
     landmark: "Near New Barrackpore Post Office",
   },
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Sandhya+Gems+Corner+New+Barrackpore+Post+Office+Market+Kolkata+700131",
-  staticMapUrl: "https://maps.googleapis.com/maps/api/staticmap?center=22.7925,88.3765&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7C22.7925,88.3765&key=placeholder",
+  staticMapUrl: "https://maps.googleapis.com/maps/api/staticmap?center=22.6983,88.4371&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7C22.6983,88.4371&key=placeholder",
   shopifyUrl: "https://sandhyagems.in",
   collectionUrl: "https://sandhyagems.in/collections/all",
   hours: [
@@ -116,11 +116,19 @@ function HeroSection() {
           backgroundPosition: 'center',
         }}
       />
+      <img 
+        src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80"
+        className="sr-only"
+        alt="Hero Gemstone"
+        width={1200}
+        height={800}
+        loading="eager"
+      />
       <div className="absolute inset-0 bg-gradient-to-t from-[#1a365d] via-[#1a365d]/70 to-[#1a365d]/40" />
       
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-          {BUSINESS_INFO.name}
+          Certified Gemstones in Kolkata & West Bengal
         </h1>
         <p className="text-lg md:text-xl text-primary mb-6 max-w-2xl mx-auto font-medium">
           {BUSINESS_INFO.tagline}
@@ -245,6 +253,8 @@ function ProductsSection() {
                         alt={product.title}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        width={400}
+                        height={400}
                       />
                     </div>
                     <CardContent className="p-3">
@@ -519,15 +529,14 @@ function Footer() {
 }
 
 function WhatsAppButton() {
-  const message = encodeURIComponent("I am interested in a gemstone from your store.");
-  const whatsappUrl = `https://wa.me/${BUSINESS_INFO.whatsapp}?text=${message}`;
+  const whatsappUrl = `https://wa.me/${BUSINESS_INFO.whatsapp}?text=I%20am%20interested%20in%20a%20gemstone%20from%20your%20Kolkata%20store.`;
   
   return (
     <a
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl"
+      className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-transform hover:scale-110 active:scale-95"
       aria-label="Chat on WhatsApp"
       data-testid="button-whatsapp"
     >
