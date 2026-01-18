@@ -111,18 +111,19 @@ function HeroSection() {
       <div 
         className="absolute inset-0 bg-[#1a365d]"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       />
       <img 
-        src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80"
+        src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80"
         className="sr-only"
         alt="Hero Gemstone"
         width={1200}
         height={800}
         loading="eager"
+        fetchPriority="high"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#1a365d] via-[#1a365d]/70 to-[#1a365d]/40" />
       
@@ -243,7 +244,12 @@ function ProductsSection() {
                 const buyNowUrl = variantId 
                   ? `https://sandhyagems.in/cart/${variantId}:1`
                   : `${BUSINESS_INFO.shopifyUrl}/products/${product.handle}`;
-                const imageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Gemstone';
+                
+                // Optimize Shopify images: request 400x400 and webp format via URL params
+                const rawImageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Gemstone';
+                const imageUrl = rawImageUrl.includes('cdn.shopify.com') 
+                  ? rawImageUrl.replace(/\.(png|jpg|jpeg)\?/, '_400x400.webp?')
+                  : rawImageUrl;
                 
                 return (
                   <Card key={product.id} className="overflow-hidden group" data-testid={`product-card-${product.id}`}>
@@ -255,6 +261,7 @@ function ProductsSection() {
                         loading="lazy"
                         width={400}
                         height={400}
+                        decoding="async"
                       />
                     </div>
                     <CardContent className="p-3">
@@ -312,7 +319,7 @@ function LocationSection() {
               <div 
                 className="w-full h-full bg-cover bg-center"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80')`,
+                  backgroundImage: `url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80')`,
                   backgroundColor: '#e5e7eb',
                 }}
               />
