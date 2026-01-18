@@ -43,7 +43,7 @@
   --chart-3: 280 65% 35%;
   --chart-4: 25 75% 40%;
   --chart-5: 340 75% 35%;
-  --font-sans: Open Sans, sans-serif;
+  --font-sans: Inter, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
   --radius: .5rem;
@@ -168,6 +168,10 @@
 @layer base {
   * {
     @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
