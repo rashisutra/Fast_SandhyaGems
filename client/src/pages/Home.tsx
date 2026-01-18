@@ -1,12 +1,27 @@
-import { Phone, MapPin, Clock, ExternalLink, Navigation, Store, Award, Users, ChevronDown } from "lucide-react";
+import { Phone, MapPin, Clock, ExternalLink, Navigation, Store, Award, Users, ChevronDown, ShoppingBag, MessageCircle } from "lucide-react";
+import { SiWhatsapp } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useQuery } from "@tanstack/react-query";
+
+interface ShopifyProduct {
+  id: number;
+  title: string;
+  handle: string;
+  images: Array<{ src: string }>;
+  variants: Array<{ id: number; price: string }>;
+}
+
+interface ShopifyResponse {
+  products: ShopifyProduct[];
+}
 
 const BUSINESS_INFO = {
   name: "Sandhya Gems Corner",
   tagline: "Your Trusted Neighborhood Jeweler Since Generations",
   phone: "+919007746465",
   phoneDisplay: "+91 9007-746-465",
+  whatsapp: "919007746465",
   address: {
     street: "Shop No 2A, New Barrackpore Post Office Market",
     city: "Kolkata",
@@ -14,8 +29,8 @@ const BUSINESS_INFO = {
     pincode: "700131",
     landmark: "Near New Barrackpore Post Office",
   },
-  mapUrl: "https://www.google.com/maps/search/?api=1&query=New+Barrackpore+Post+Office+Market+Kolkata+700131",
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.5!2d88.376!3d22.792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQ3JzMxLjIiTiA4OMKwMjInMzUuNCJF!5e0!3m2!1sen!2sin!4v1234567890",
+  mapUrl: "https://www.google.com/maps/search/?api=1&query=Sandhya+Gems+Corner+New+Barrackpore+Post+Office+Market+Kolkata+700131",
+  staticMapUrl: "https://maps.googleapis.com/maps/api/staticmap?center=22.7925,88.3765&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7C22.7925,88.3765&key=placeholder",
   shopifyUrl: "https://sandhyagems.in",
   hours: [
     { day: "Monday", hours: "10:00 AM - 9:30 PM", isShort: false },
@@ -32,11 +47,6 @@ const BUSINESS_INFO = {
 
 function getCurrentDayIndex(): number {
   return new Date().getDay();
-}
-
-function getDayIndex(dayName: string): number {
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  return days.indexOf(dayName);
 }
 
 function getTodayHours(): { hours: string; isOpen: boolean } {
@@ -61,13 +71,23 @@ function getTodayHours(): { hours: string; isOpen: boolean } {
   return { hours: today.hours, isOpen };
 }
 
+function formatPrice(price: string): string {
+  const num = parseFloat(price);
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(num);
+}
+
 function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#1a365d]/95 backdrop-blur-sm border-b border-[#2a4a7a]">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <Store className="w-6 h-6 text-primary" />
-          <span className="font-semibold text-lg">{BUSINESS_INFO.name}</span>
+          <span className="font-semibold text-lg text-white">{BUSINESS_INFO.name}</span>
         </div>
         <Button asChild size="sm">
           <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-header">
@@ -81,37 +101,35 @@ function Header() {
 }
 
 function HeroSection() {
-  const scrollToLocation = () => {
-    document.getElementById("location")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToProducts = () => {
+    document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section className="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-center pt-16">
-      {/* Hero background - replace with actual store photo */}
       <div 
-        className="absolute inset-0 bg-amber-800"
+        className="absolute inset-0 bg-[#1a365d]"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       />
-      {/* Dark wash overlay for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1a365d] via-[#1a365d]/70 to-[#1a365d]/40" />
       
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
           {BUSINESS_INFO.name}
         </h1>
-        <p className="text-lg md:text-xl text-amber-100 mb-6 max-w-2xl mx-auto">
+        <p className="text-lg md:text-xl text-primary mb-6 max-w-2xl mx-auto font-medium">
           {BUSINESS_INFO.tagline}
         </p>
-        <div className="flex items-center justify-center gap-2 text-amber-100 mb-8">
+        <div className="flex items-center justify-center gap-2 text-gray-200 mb-8">
           <MapPin className="w-5 h-5 flex-shrink-0" />
           <span className="text-sm md:text-base">{BUSINESS_INFO.address.street}, {BUSINESS_INFO.address.city} - {BUSINESS_INFO.address.pincode}</span>
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button asChild size="lg" className="bg-white text-amber-900 hover:bg-amber-50 border-white min-w-[180px]">
+          <Button asChild size="lg" className="min-w-[180px]">
             <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-hero">
               <Phone className="w-5 h-5 mr-2" />
               Call Now
@@ -125,9 +143,9 @@ function HeroSection() {
           </Button>
         </div>
         <button 
-          onClick={scrollToLocation}
-          className="mt-12 text-amber-200"
-          aria-label="Scroll to see more"
+          onClick={scrollToProducts}
+          className="mt-12 text-primary"
+          aria-label="Scroll to see products"
           data-testid="button-scroll-down"
         >
           <ChevronDown className="w-8 h-8" />
@@ -147,10 +165,10 @@ function QuickInfoBar() {
           <div className="flex items-center justify-center sm:justify-start gap-3">
             <Clock className="w-6 h-6 flex-shrink-0" />
             <div>
-              <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium mr-2 ${isOpen ? 'bg-green-500/20 text-green-100' : 'bg-red-500/20 text-red-100'}`}>
+              <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium mr-2 ${isOpen ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
                 {isOpen ? "Open Now" : "Closed"}
               </span>
-              <span className="text-sm">Today: {hours}</span>
+              <span className="text-sm font-medium">Today: {hours}</span>
             </div>
           </div>
           <div className="flex items-center justify-center sm:justify-end gap-3">
@@ -169,26 +187,138 @@ function QuickInfoBar() {
   );
 }
 
+function ProductsSection() {
+  const { data, isLoading, error } = useQuery<ShopifyResponse>({
+    queryKey: ['/api/products'],
+  });
+
+  const products = data?.products?.slice(0, 8) || [];
+
+  return (
+    <section id="products" className="py-12 md:py-16 bg-background scroll-mt-16">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">Our Collection</h2>
+        <p className="text-center text-muted-foreground mb-8">Handpicked jewelry for every occasion</p>
+        
+        {isLoading && (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {[...Array(8)].map((_, i) => (
+              <Card key={i} className="overflow-hidden">
+                <div className="aspect-square bg-muted" />
+                <CardContent className="p-3">
+                  <div className="h-4 bg-muted rounded w-3/4 mb-2" />
+                  <div className="h-4 bg-muted rounded w-1/2" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground mb-4">Unable to load products</p>
+            <Button asChild>
+              <a href={BUSINESS_INFO.shopifyUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Visit Our Store
+              </a>
+            </Button>
+          </div>
+        )}
+
+        {products.length > 0 && (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              {products.map((product) => {
+                const variantId = product.variants[0]?.id;
+                const buyNowUrl = variantId 
+                  ? `https://sandhyagems.in/cart/${variantId}:1`
+                  : `${BUSINESS_INFO.shopifyUrl}/products/${product.handle}`;
+                const imageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Jewelry';
+                
+                return (
+                  <Card key={product.id} className="overflow-hidden group" data-testid={`product-card-${product.id}`}>
+                    <div className="aspect-square overflow-hidden bg-muted">
+                      <img 
+                        src={imageUrl}
+                        alt={product.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <CardContent className="p-3">
+                      <h3 className="font-medium text-sm line-clamp-2 mb-1" title={product.title}>
+                        {product.title}
+                      </h3>
+                      <p className="text-primary font-bold text-base mb-2">
+                        {formatPrice(product.variants[0]?.price || "0")}
+                      </p>
+                      <Button asChild size="sm" className="w-full">
+                        <a 
+                          href={buyNowUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-testid={`button-buy-${product.id}`}
+                        >
+                          <ShoppingBag className="w-4 h-4 mr-1" />
+                          Buy Now
+                        </a>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+            <div className="text-center mt-8">
+              <Button asChild size="lg">
+                <a href={BUSINESS_INFO.shopifyUrl} target="_blank" rel="noopener noreferrer" data-testid="button-view-all">
+                  <ExternalLink className="w-5 h-5 mr-2" />
+                  View All Products
+                </a>
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function LocationSection() {
   return (
-    <section id="location" className="py-12 md:py-16 bg-background scroll-mt-16">
+    <section id="location" className="py-12 md:py-16 bg-muted/30 scroll-mt-16">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Visit Our Store</h2>
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-3">
-            <div className="aspect-video rounded-xl overflow-hidden border border-border bg-muted">
-              <iframe
-                src={BUSINESS_INFO.mapEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Sandhya Gems Corner Location Map"
-                data-testid="iframe-map"
-              ></iframe>
-            </div>
+            <a 
+              href={BUSINESS_INFO.mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block aspect-video rounded-xl overflow-hidden border border-border relative group"
+              data-testid="link-map-image"
+            >
+              <div 
+                className="w-full h-full bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80')`,
+                  backgroundColor: '#e5e7eb',
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1a365d]/80 to-transparent flex items-end justify-center pb-16">
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg px-6 py-4 shadow-lg text-center">
+                  <div className="flex items-center justify-center gap-2 text-[#1a365d] font-semibold text-lg">
+                    <MapPin className="w-6 h-6 text-red-500" />
+                    <span>Sandhya Gems Corner</span>
+                  </div>
+                  <p className="text-sm text-gray-600 mt-1">New Barrackpore Post Office Market, Kolkata - 700131</p>
+                </div>
+              </div>
+              <div className="absolute bottom-4 right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium text-sm shadow-lg flex items-center gap-2">
+                <Navigation className="w-4 h-4" />
+                Open in Google Maps
+              </div>
+            </a>
           </div>
           <div className="lg:col-span-2 flex flex-col justify-center">
             <Card>
@@ -233,7 +363,7 @@ function BusinessHoursSection() {
   const todayName = dayNames[currentDayIndex];
 
   return (
-    <section className="py-12 md:py-16 bg-muted/30">
+    <section className="py-12 md:py-16 bg-background">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">Business Hours</h2>
         <p className="text-center text-muted-foreground mb-8">We're open 7 days a week</p>
@@ -246,16 +376,16 @@ function BusinessHoursSection() {
                   return (
                     <li 
                       key={schedule.day}
-                      className={`flex items-center justify-between px-4 py-3 ${isToday ? 'bg-primary/5' : ''}`}
+                      className={`flex items-center justify-between px-4 py-3 ${isToday ? 'bg-primary/10' : ''}`}
                       data-testid={`hours-${schedule.day.toLowerCase()}`}
                     >
                       <span className={`font-medium ${isToday ? 'text-primary' : ''}`}>
                         {schedule.day}
                         {isToday && <span className="ml-2 text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">Today</span>}
                       </span>
-                      <span className={`${schedule.isShort ? 'text-amber-600 dark:text-amber-400' : 'text-muted-foreground'}`}>
+                      <span className={`${schedule.isShort ? 'text-orange-600 dark:text-orange-400' : 'text-muted-foreground'}`}>
                         {schedule.hours}
-                        {schedule.isShort && <span className="ml-1 text-xs">(Short Day)</span>}
+                        {schedule.isShort && <span className="ml-1 text-xs">(Short)</span>}
                       </span>
                     </li>
                   );
@@ -292,7 +422,7 @@ function TrustSection() {
   ];
 
   return (
-    <section className="py-12 md:py-16 bg-background">
+    <section className="py-12 md:py-16 bg-muted/30">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Why Choose Us</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -315,17 +445,17 @@ function TrustSection() {
 
 function CTASection() {
   return (
-    <section className="py-12 md:py-16 bg-gradient-to-b from-amber-900 to-amber-950">
+    <section className="py-12 md:py-16 bg-[#1a365d]">
       <div className="max-w-4xl mx-auto px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
           Explore Our Full Collection
         </h2>
-        <p className="text-amber-100 mb-8 max-w-2xl mx-auto">
+        <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
           Browse our extensive collection of gold, silver, and diamond jewelry. 
           From traditional designs to contemporary pieces, find the perfect jewelry for every occasion.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button asChild size="lg" className="bg-white text-amber-900 hover:bg-amber-50 min-w-[200px]">
+          <Button asChild size="lg" className="min-w-[200px]">
             <a 
               href={BUSINESS_INFO.shopifyUrl} 
               target="_blank" 
@@ -336,7 +466,7 @@ function CTASection() {
               Visit Online Store
             </a>
           </Button>
-          <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10 min-w-[200px]">
+          <Button asChild size="lg" variant="outline" className="border-white text-white bg-white/10 min-w-[200px]">
             <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-cta">
               <Phone className="w-5 h-5 mr-2" />
               Call to Inquire
@@ -387,6 +517,24 @@ function Footer() {
   );
 }
 
+function WhatsAppButton() {
+  const message = encodeURIComponent("Hi! I'm interested in your jewelry collection. Can you help me?");
+  const whatsappUrl = `https://wa.me/${BUSINESS_INFO.whatsapp}?text=${message}`;
+  
+  return (
+    <a
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl"
+      aria-label="Chat on WhatsApp"
+      data-testid="button-whatsapp"
+    >
+      <SiWhatsapp className="w-7 h-7 text-white" />
+    </a>
+  );
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -394,12 +542,14 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <QuickInfoBar />
+        <ProductsSection />
         <LocationSection />
         <BusinessHoursSection />
         <TrustSection />
         <CTASection />
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 }

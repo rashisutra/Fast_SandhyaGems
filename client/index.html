@@ -39,21 +39,31 @@
       "@context": "https://schema.org",
       "@type": "JewelryStore",
       "name": "Sandhya Gems Corner",
-      "image": "",
+      "description": "Trusted neighborhood jewelry store in New Barrackpore, Kolkata. Offering quality gold, silver, and diamond jewelry for over 25 years. Visit our physical store at New Barrackpore Post Office Market.",
+      "image": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80",
       "url": "https://fast.sandhyagems.in",
       "telephone": "+919007746465",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Shop No 2A, New Barrackpore Post Office Market",
         "addressLocality": "Kolkata",
+        "addressRegion": "West Bengal",
         "postalCode": "700131",
-        "addressRegion": "WB",
         "addressCountry": "IN"
       },
       "geo": {
         "@type": "GeoCoordinates",
         "latitude": 22.7925,
         "longitude": 88.3765
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 22.7925,
+          "longitude": 88.3765
+        },
+        "geoRadius": "20000"
       },
       "openingHoursSpecification": [
         {
@@ -71,7 +81,19 @@
       ],
       "priceRange": "$$",
       "currenciesAccepted": "INR",
-      "paymentAccepted": "Cash, UPI, Card"
+      "paymentAccepted": "Cash, UPI, Card",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Jewelry Collection",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Gold Jewelry"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Silver Jewelry"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Diamond Jewelry"}}
+        ]
+      },
+      "sameAs": [
+        "https://sandhyagems.in"
+      ]
     }
     </script>
   </head>
