@@ -83,6 +83,18 @@ function formatPrice(price: string): string {
   }).format(num);
 }
 
+// Optimize Shopify CDN images - request smaller size with WebP format
+function getOptimizedImageUrl(originalUrl: string, width: number = 400): string {
+  if (!originalUrl || !originalUrl.includes('cdn.shopify.com')) {
+    return originalUrl;
+  }
+  // Shopify CDN supports width parameter and format conversion
+  const url = new URL(originalUrl);
+  url.searchParams.set('width', width.toString());
+  url.searchParams.set('format', 'webp');
+  return url.toString();
+}
+
 function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#1a365d]/95 backdrop-blur-sm border-b border-[#2a4a7a]">
@@ -109,14 +121,17 @@ function HeroSection() {
 
   return (
     <section className="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-center pt-16">
-      <div 
-        className="absolute inset-0 bg-[#1a365d]"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
+      <div className="absolute inset-0 bg-[#1a365d]">
+        <img 
+          src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=70"
+          alt="Gemstones background"
+          className="w-full h-full object-cover"
+          width="800"
+          height="600"
+          fetchPriority="high"
+          decoding="async"
+        />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-t from-[#1a365d] via-[#1a365d]/70 to-[#1a365d]/40" />
       
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
@@ -240,8 +255,9 @@ function ProductsSection() {
                   ? `https://sandhyagems.in/cart/${variantId}:1`
                   : `${BUSINESS_INFO.shopifyUrl}/products/${product.handle}`;
                 
-                // Use original Shopify image URLs - they're already optimized by Shopify CDN
-                const imageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Gemstone';
+                // Optimize Shopify images - request 400px WebP for faster loading
+                const originalImageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Gemstone';
+                const imageUrl = getOptimizedImageUrl(originalImageUrl, 400);
                 
                 return (
                   <Card key={product.id} className="overflow-hidden group" data-testid={`product-card-${product.id}`}>
@@ -315,7 +331,7 @@ function LocationSection() {
               <div 
                 className="w-full h-full bg-cover bg-center"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80')`,
+                  backgroundImage: `url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=70')`,
                   backgroundColor: '#e5e7eb',
                 }}
               />
