@@ -103,11 +103,10 @@ function Header() {
           <img 
             src="/logo.jpg" 
             alt="Sandhya Gems Corner" 
-            className="h-10 w-10 rounded-full object-cover"
-            width="40"
+            className="h-10 w-auto object-contain"
+            width="160"
             height="40"
           />
-          <span className="font-semibold text-lg text-white hidden sm:block">{BUSINESS_INFO.name}</span>
         </div>
         <Button asChild size="sm">
           <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-header">
