@@ -103,7 +103,7 @@ function Header() {
           <img 
             src="/logo.jpg" 
             alt="Sandhya Gems Corner" 
-            className="h-10 w-10 rounded-full object-cover"
+            className="h-10 w-10 object-contain"
             width="40"
             height="40"
           />
