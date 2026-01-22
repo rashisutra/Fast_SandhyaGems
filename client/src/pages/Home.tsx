@@ -100,8 +100,8 @@ function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#1a365d]/95 backdrop-blur-sm border-b border-[#2a4a7a]">
       <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
         <div className="flex items-center">
-          <span className="text-xl font-bold text-white tracking-wide">
-            <span className="text-purple-400">Sandhya</span> Gems Corner
+          <span className="text-xl font-bold text-purple-400 tracking-wide">
+            Sandhya Gems Corner
           </span>
         </div>
         <Button asChild size="sm">
@@ -252,10 +252,7 @@ function ProductsSection() {
           <>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               {products.map((product) => {
-                const variantId = product.variants[0]?.id;
-                const buyNowUrl = variantId 
-                  ? `https://sandhyagems.in/cart/${variantId}:1`
-                  : `${BUSINESS_INFO.shopifyUrl}/products/${product.handle}`;
+                const productUrl = `${BUSINESS_INFO.shopifyUrl}/products/${product.handle}`;
                 
                 // Optimize Shopify images - request 400px WebP for faster loading
                 const originalImageUrl = product.images[0]?.src || 'https://placehold.co/400x400/1a365d/d4af37?text=Gemstone';
@@ -287,7 +284,7 @@ function ProductsSection() {
                       </p>
                       <Button asChild size="sm" className="w-full">
                         <a 
-                          href={buyNowUrl}
+                          href={productUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           data-testid={`button-buy-${product.id}`}
