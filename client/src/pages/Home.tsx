@@ -474,7 +474,7 @@ function TrustSection() {
 }
 
 function TestimonialsSection() {
-  const googleReviewsUrl = "https://www.google.com/maps/place/Sandhya+Gems+Corner/@22.6983,88.4371,17z/data=!4m8!3m7!1s0x0:0x0!8m2!3d22.6983!4d88.4371!9m1!1b1!16s";
+  const googleReviewsUrl = "https://www.google.com/search?q=Sandhya+Gems+Corner+New+Barrackpore+reviews";
   
   const testimonials = [
     {
@@ -522,7 +522,7 @@ function TestimonialsSection() {
               ))}
             </div>
           </div>
-          <p className="text-muted-foreground">Based on 128+ reviews</p>
+          <p className="text-muted-foreground">Based on Google reviews</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -558,7 +558,7 @@ function TestimonialsSection() {
               data-testid="button-google-reviews"
             >
               <Star className="w-4 h-4 mr-2 fill-yellow-400 text-yellow-400" />
-              Read All 128+ Reviews on Google
+              View All Reviews
             </a>
           </Button>
         </div>
