@@ -275,10 +275,6 @@ function ProductsSection() {
                       <p className="text-primary font-bold text-base mb-1">
                         {formatPrice(product.variants[0]?.price || "0")}
                       </p>
-                      <p className="text-xs text-green-600 font-medium mb-2 flex items-center gap-1">
-                        <Store className="w-3 h-3" />
-                        In-Store Pickup Available
-                      </p>
                       <div className="mt-auto">
                         <Button asChild size="sm" className="w-full">
                           <a 

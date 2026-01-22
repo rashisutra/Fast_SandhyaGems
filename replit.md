@@ -75,6 +75,7 @@ shared/
   - Updated to Gemstone Dealer branding with purple accent color
   - Changed product collection to Navratna gemstones
   - "Know More" buttons instead of "Quick Buy" (links to product page)
+  - Removed "In-Store Pickup Available" from product cards
   - Enhanced Schema.org LocalBusiness structured data with aggregateRating
   - Added Twitter Card meta tags
   - Added accessibility features: skip link, ARIA labels, role attributes
