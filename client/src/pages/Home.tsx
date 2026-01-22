@@ -133,7 +133,6 @@ function HeroSection() {
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-[#1a365d] via-[#1a365d]/70 to-[#1a365d]/40" />
-      
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
           Certified Gemstones in Kolkata
@@ -141,9 +140,7 @@ function HeroSection() {
         <p className="text-lg md:text-xl text-purple-300 mb-4 max-w-2xl mx-auto font-medium">
           {BUSINESS_INFO.tagline}
         </p>
-        <p className="text-sm text-purple-200 mb-4">
-          Best Panna, Moonga & Manik stones in North 24 Parganas
-        </p>
+        <p className="text-sm text-purple-200 mb-4">Best Panna, Moonga & Manik stones in Kolkata</p>
         <div className="flex items-center justify-center gap-2 text-gray-200 mb-8">
           <MapPin className="w-5 h-5 flex-shrink-0" />
           <span className="text-sm md:text-base">{BUSINESS_INFO.address.street}, {BUSINESS_INFO.address.city} - {BUSINESS_INFO.address.pincode}</span>
