@@ -97,14 +97,14 @@ function getOptimizedImageUrl(originalUrl: string, width: number = 400): string 
 
 function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#1a365d]/95 backdrop-blur-sm border-b border-[#2a4a7a]">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#1a365d]/95 backdrop-blur-sm border-b border-[#2a4a7a]" role="banner">
       <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
-        <div className="flex items-center">
-          <span className="text-xl font-bold text-purple-400 tracking-wide">Sandhya Gems </span>
-        </div>
+        <a href="/" className="flex items-center" aria-label="Sandhya Gems Corner - Home">
+          <span className="text-xl font-bold text-purple-400 tracking-wide">Sandhya Gems Corner</span>
+        </a>
         <Button asChild size="sm">
-          <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-header">
-            <Phone className="w-4 h-4 mr-2" />
+          <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-header" aria-label="Call our gem expert">
+            <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
             <span className="hidden sm:inline">Talk to Our Gem Expert</span>
             <span className="sm:hidden">Call Expert</span>
           </a>
@@ -120,11 +120,12 @@ function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-center pt-16">
-      <div className="absolute inset-0 bg-[#1a365d]">
+    <section className="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-center pt-16" aria-label="Welcome to Sandhya Gems Corner">
+      <div className="absolute inset-0 bg-[#1a365d]" aria-hidden="true">
         <img 
           src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=70"
-          alt="Gemstones background"
+          alt=""
+          role="presentation"
           className="w-full h-full object-cover"
           width="800"
           height="600"
@@ -132,7 +133,7 @@ function HeroSection() {
           decoding="async"
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1a365d] via-[#1a365d]/70 to-[#1a365d]/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1a365d] via-[#1a365d]/70 to-[#1a365d]/40" aria-hidden="true" />
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
           Certified Gemstones in Kolkata
@@ -141,31 +142,32 @@ function HeroSection() {
           {BUSINESS_INFO.tagline}
         </p>
         <p className="text-sm text-purple-200 mb-4">Best Panna, Moonga & Manik stones in Kolkata</p>
-        <div className="flex items-center justify-center gap-2 text-gray-200 mb-8">
-          <MapPin className="w-5 h-5 flex-shrink-0" />
+        <address className="not-italic flex items-center justify-center gap-2 text-gray-200 mb-8">
+          <MapPin className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
           <span className="text-sm md:text-base">{BUSINESS_INFO.address.street}, {BUSINESS_INFO.address.city} - {BUSINESS_INFO.address.pincode}</span>
-        </div>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        </address>
+        <nav className="flex flex-col sm:flex-row items-center justify-center gap-4" aria-label="Contact options">
           <Button asChild size="lg" className="min-w-[180px]">
-            <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-hero">
-              <Phone className="w-5 h-5 mr-2" />
+            <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-hero" aria-label="Call our gem expert at +91 82406-73685">
+              <Phone className="w-5 h-5 mr-2" aria-hidden="true" />
               Talk to Our Gem Expert
             </a>
           </Button>
           <Button asChild size="lg" variant="outline" className="border-white text-white backdrop-blur-sm bg-white/10 min-w-[180px]">
-            <a href={BUSINESS_INFO.mapUrl} target="_blank" rel="noopener noreferrer" data-testid="button-map-hero">
-              <Navigation className="w-5 h-5 mr-2" />
+            <a href={BUSINESS_INFO.mapUrl} target="_blank" rel="noopener noreferrer" data-testid="button-map-hero" aria-label="Get directions to our store on Google Maps">
+              <Navigation className="w-5 h-5 mr-2" aria-hidden="true" />
               Get Directions
             </a>
           </Button>
-        </div>
+        </nav>
         <button 
           onClick={scrollToProducts}
           className="mt-12 text-purple-300"
-          aria-label="Scroll to see products"
+          aria-label="Scroll down to view our gemstone collection"
           data-testid="button-scroll-down"
+          type="button"
         >
-          <ChevronDown className="w-8 h-8" />
+          <ChevronDown className="w-8 h-8" aria-hidden="true" />
         </button>
       </div>
     </section>
@@ -600,20 +602,21 @@ function CTASection() {
 
 function Footer() {
   return (
-    <footer className="bg-card border-t border-border py-8">
+    <footer className="bg-card border-t border-border py-8" role="contentinfo">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Store className="w-5 h-5 text-primary" />
+            <Store className="w-5 h-5 text-primary" aria-hidden="true" />
             <span className="font-semibold">{BUSINESS_INFO.name}</span>
           </div>
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+          <nav className="flex items-center gap-6 text-sm text-muted-foreground" aria-label="Footer contact links">
             <a 
               href={`tel:${BUSINESS_INFO.phone}`} 
               className="hover:text-foreground flex items-center gap-1"
               data-testid="link-phone-footer"
+              aria-label={`Call us at ${BUSINESS_INFO.phoneDisplay}`}
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-4 h-4" aria-hidden="true" />
               {BUSINESS_INFO.phoneDisplay}
             </a>
             <a 
@@ -622,11 +625,12 @@ function Footer() {
               rel="noopener noreferrer"
               className="hover:text-foreground flex items-center gap-1"
               data-testid="link-location-footer"
+              aria-label="View our location on Google Maps"
             >
-              <MapPin className="w-4 h-4" />
+              <MapPin className="w-4 h-4" aria-hidden="true" />
               New Barrackpore, Kolkata
             </a>
-          </div>
+          </nav>
         </div>
         <div className="mt-6 pt-6 border-t border-border text-center text-xs text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} {BUSINESS_INFO.name}. All rights reserved.</p>
@@ -646,10 +650,11 @@ function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-transform hover:scale-110 active:scale-95"
-      aria-label="Chat on WhatsApp"
+      aria-label="Chat with us on WhatsApp"
       data-testid="button-whatsapp"
+      title="Chat on WhatsApp"
     >
-      <SiWhatsapp className="w-7 h-7 text-white" />
+      <SiWhatsapp className="w-7 h-7 text-white" aria-hidden="true" />
     </a>
   );
 }
@@ -682,22 +687,23 @@ function WelcomePopup() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="popup-title">
       <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 relative">
         <button
           onClick={handleClose}
           className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
           aria-label="Close popup"
           data-testid="button-close-popup"
+          type="button"
         >
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5" aria-hidden="true" />
         </button>
         
         <div className="text-center">
-          <div className="w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
             <SiWhatsapp className="w-8 h-8 text-white" />
           </div>
-          <h3 className="text-xl font-bold text-[#1a365d] mb-2">
+          <h3 id="popup-title" className="text-xl font-bold text-[#1a365d] mb-2">
             Want to Learn About Gemstones?
           </h3>
           <p className="text-gray-600 text-sm mb-6">
@@ -705,6 +711,7 @@ function WelcomePopup() {
           </p>
           <Button
             onClick={handleConnect}
+            type="button"
             className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white"
             size="lg"
             data-testid="button-connect-whatsapp"
@@ -728,8 +735,11 @@ function WelcomePopup() {
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[100] focus:bg-primary focus:text-primary-foreground focus:p-4">
+        Skip to main content
+      </a>
       <Header />
-      <main className="flex-1">
+      <main className="flex-1" role="main" id="main-content">
         <HeroSection />
         <QuickInfoBar />
         <ProductsSection />

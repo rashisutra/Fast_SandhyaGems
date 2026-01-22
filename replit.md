@@ -23,11 +23,13 @@ shared/
 ## Key Features
 - **Hero Section**: Background image with dark wash overlay, H1: "Certified Gemstones in Kolkata"
 - **Quick Info Bar**: Open/closed status, phone number
-- **Product Grid**: 8 best-seller products from Shopify with Quick Buy buttons
+- **Product Grid**: 8 Navratna gemstones from Shopify with "Know More" buttons
 - **Location Section**: Static map image + address card (click opens Google Maps)
 - **Business Hours**: Full weekly schedule with current day highlight
 - **Trust Indicators**: Years in business, customer count, physical store
+- **Google Reviews**: 4.8 rating display with testimonials
 - **Floating WhatsApp Button**: Green bubble with pre-filled message
+- **Welcome Popup**: WhatsApp redirect (3-second delay, session-based)
 - **CTA Section**: Links to Shopify store
 - **Footer**: NAP (Name, Address, Phone) for local SEO
 
@@ -45,25 +47,37 @@ shared/
 - **Title**: "Natural Certified Gemstones in Kolkata | Sandhya Gems Corner"
 - **H1**: "Certified Gemstones in Kolkata"
 - **Meta Description**: "Trusted gemstone shop in New Barrackpore since 2011. Certified Panna, Moonga, and Manik stones."
-- Schema.org JewelryStore structured data with geo coordinates (22.6983, 88.4371)
-- Open Graph meta tags
-- Geo meta tags for local SEO
+- Schema.org LocalBusiness structured data with geo coordinates (22.6983, 88.4371) and aggregateRating
+- Open Graph and Twitter Card meta tags
+- Geo meta tags for local SEO (geo.position, ICBM)
 - Canonical URL
 - Semantic HTML with proper heading hierarchy
+- Skip to main content link for accessibility
+- ARIA labels and roles throughout for screen readers
+- Theme-color meta tag
 
 ## Design System
-- **Font**: Inter (Google Fonts)
-- **Colors**: Deep Blue (#1a365d) and Gold (#d4af37) theme
+- **Font**: Inter (Google Fonts with font-display: swap)
+- **Colors**: Deep Blue (#1a365d) and Purple (#a855f7) theme
 - **Animations**: None (speed-first approach, only smooth scroll)
 - **Mobile-first**: Responsive design with touch-friendly tap targets
-- **Speed optimized**: All images have width/height for CLS, lazy loading enabled
+- **Speed optimized**: LCP hero image preloaded, critical CSS inlined, all images have width/height for CLS, lazy loading enabled
 
 ## API Routes
-- `GET /api/products` - Server-side proxy fetching from https://sandhyagems.in/collections/best-seller/products.json?limit=8
+- `GET /api/products` - Server-side proxy fetching from https://sandhyagems.in/collections/authentic-navratna-gemstones-online-sandhya-gems/products.json?limit=8
 
 ## Product Links
-- **Quick Buy**: Links to `https://sandhyagems.in/cart/{variant_id}:1` (direct checkout)
+- **Know More**: Links to product page at `https://sandhyagems.in/products/{handle}`
 - **View All Products**: Links to `https://sandhyagems.in/collections/all`
 
 ## Recent Changes
-- January 2026: Updated to Gemstone Dealer branding, new phone number, best-seller collection, Quick Buy buttons, WhatsApp with pre-filled message
+- January 2026: Major SEO and performance optimizations
+  - Updated to Gemstone Dealer branding with purple accent color
+  - Changed product collection to Navratna gemstones
+  - "Know More" buttons instead of "Quick Buy" (links to product page)
+  - Enhanced Schema.org LocalBusiness structured data with aggregateRating
+  - Added Twitter Card meta tags
+  - Added accessibility features: skip link, ARIA labels, role attributes
+  - Performance: preload LCP hero image, critical CSS inline, font-display swap
+  - Google Reviews testimonials section with 4.8 rating
+  - Welcome popup with WhatsApp redirect
