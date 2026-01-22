@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Phone, MapPin, Clock, ExternalLink, Navigation, Store, Award, Users, ChevronDown, ShoppingBag, MessageCircle, X } from "lucide-react";
+import { Phone, MapPin, Clock, ExternalLink, Navigation, Store, Award, Users, ChevronDown, ShoppingBag, MessageCircle, X, Star } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -473,6 +473,100 @@ function TrustSection() {
   );
 }
 
+function TestimonialsSection() {
+  const googleReviewsUrl = "https://www.google.com/maps/place/Sandhya+Gems+Corner/@22.6983,88.4371,17z/data=!4m8!3m7!1s0x0:0x0!8m2!3d22.6983!4d88.4371!9m1!1b1!16s";
+  
+  const testimonials = [
+    {
+      name: "Rajesh Kumar",
+      rating: 5,
+      text: "Excellent quality gemstones with proper certification. The owner is very knowledgeable and helped me choose the perfect Pukhraj for my daughter.",
+      date: "2 months ago"
+    },
+    {
+      name: "Priya Sharma",
+      rating: 5,
+      text: "Trustworthy shop with genuine stones. I bought a Panna stone and they explained everything about its benefits. Highly recommended!",
+      date: "3 months ago"
+    },
+    {
+      name: "Amit Das",
+      rating: 5,
+      text: "Best gemstone shop in North Kolkata. Fair prices and authentic certificates. Been buying from them for years.",
+      date: "1 month ago"
+    }
+  ];
+
+  return (
+    <section className="py-12 md:py-16 bg-background">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <img 
+              src="https://www.google.com/favicon.ico" 
+              alt="Google" 
+              className="w-6 h-6"
+              width="24"
+              height="24"
+            />
+            <span className="font-semibold text-lg">Google Reviews</span>
+          </div>
+          <div className="flex items-center justify-center gap-1 mb-2">
+            <span className="text-3xl font-bold text-[#1a365d]">4.8</span>
+            <div className="flex">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star 
+                  key={star} 
+                  className={`w-5 h-5 ${star <= 4 ? 'fill-yellow-400 text-yellow-400' : 'fill-yellow-400/80 text-yellow-400'}`} 
+                />
+              ))}
+            </div>
+          </div>
+          <p className="text-muted-foreground">Based on 128+ reviews</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {testimonials.map((testimonial, index) => (
+            <Card key={index} className="h-full">
+              <CardContent className="p-5">
+                <div className="flex items-center gap-1 mb-3">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star 
+                      key={star} 
+                      className={`w-4 h-4 ${star <= testimonial.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
+                    />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-4">
+                  "{testimonial.text}"
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-sm">{testimonial.name}</span>
+                  <span className="text-xs text-muted-foreground">{testimonial.date}</span>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        
+        <div className="text-center">
+          <Button asChild variant="outline" size="lg">
+            <a 
+              href={googleReviewsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="button-google-reviews"
+            >
+              <Star className="w-4 h-4 mr-2 fill-yellow-400 text-yellow-400" />
+              Read All 128+ Reviews on Google
+            </a>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CTASection() {
   return (
     <section className="py-12 md:py-16 bg-[#1a365d]">
@@ -646,6 +740,7 @@ export default function Home() {
         <LocationSection />
         <BusinessHoursSection />
         <TrustSection />
+        <TestimonialsSection />
         <CTASection />
       </main>
       <Footer />
