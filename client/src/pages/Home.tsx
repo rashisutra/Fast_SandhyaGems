@@ -19,7 +19,7 @@ interface ShopifyResponse {
 
 const BUSINESS_INFO = {
   name: "Sandhya Gems Corner",
-  tagline: "Your Trusted Neighborhood Gemstone Dealer Since Generations",
+  tagline: "Your Trusted Gemstone Dealer Since Generations",
   phone: "8240673685",
   phoneDisplay: "+91 82406-73685",
   whatsapp: "918240673685",
