@@ -259,7 +259,7 @@ function ProductsSection() {
                 const imageUrl = getOptimizedImageUrl(originalImageUrl, 400);
                 
                 return (
-                  <Card key={product.id} className="overflow-hidden group" data-testid={`product-card-${product.id}`}>
+                  <Card key={product.id} className="overflow-hidden group flex flex-col h-full" data-testid={`product-card-${product.id}`}>
                     <div className="aspect-square overflow-hidden bg-muted">
                       <img 
                         src={imageUrl}
@@ -271,7 +271,7 @@ function ProductsSection() {
                         decoding="async"
                       />
                     </div>
-                    <CardContent className="p-3">
+                    <CardContent className="p-3 flex flex-col flex-1">
                       <h3 className="font-medium text-sm line-clamp-2 mb-1" title={product.title}>
                         {product.title}
                       </h3>
@@ -282,17 +282,19 @@ function ProductsSection() {
                         <Store className="w-3 h-3" />
                         In-Store Pickup Available
                       </p>
-                      <Button asChild size="sm" className="w-full">
-                        <a 
-                          href={productUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          data-testid={`button-buy-${product.id}`}
-                        >
-                          <ShoppingBag className="w-4 h-4 mr-1" />
-                          Know More
-                        </a>
-                      </Button>
+                      <div className="mt-auto">
+                        <Button asChild size="sm" className="w-full">
+                          <a 
+                            href={productUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-testid={`button-buy-${product.id}`}
+                          >
+                            <ShoppingBag className="w-4 h-4 mr-1" />
+                            Know More
+                          </a>
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 );
