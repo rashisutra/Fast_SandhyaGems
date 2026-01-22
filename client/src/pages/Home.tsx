@@ -98,15 +98,22 @@ function getOptimizedImageUrl(originalUrl: string, width: number = 400): string 
 function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#1a365d]/95 backdrop-blur-sm border-b border-[#2a4a7a]">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <Store className="w-6 h-6 text-primary" />
-          <span className="font-semibold text-lg text-white">{BUSINESS_INFO.name}</span>
+          <img 
+            src="/logo.jpg" 
+            alt="Sandhya Gems Corner" 
+            className="h-10 w-10 rounded-full object-cover"
+            width="40"
+            height="40"
+          />
+          <span className="font-semibold text-lg text-white hidden sm:block">{BUSINESS_INFO.name}</span>
         </div>
         <Button asChild size="sm">
           <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-header">
             <Phone className="w-4 h-4 mr-2" />
-            Call Now
+            <span className="hidden sm:inline">Talk to Our Gem Expert</span>
+            <span className="sm:hidden">Call Expert</span>
           </a>
         </Button>
       </div>
@@ -138,10 +145,10 @@ function HeroSection() {
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
           Certified Gemstones in Kolkata
         </h1>
-        <p className="text-lg md:text-xl text-primary mb-4 max-w-2xl mx-auto font-medium">
+        <p className="text-lg md:text-xl text-purple-300 mb-4 max-w-2xl mx-auto font-medium">
           {BUSINESS_INFO.tagline}
         </p>
-        <p className="text-sm text-gray-300 mb-4">
+        <p className="text-sm text-purple-200 mb-4">
           Best Panna, Moonga & Manik stones in North 24 Parganas
         </p>
         <div className="flex items-center justify-center gap-2 text-gray-200 mb-8">
@@ -152,7 +159,7 @@ function HeroSection() {
           <Button asChild size="lg" className="min-w-[180px]">
             <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-hero">
               <Phone className="w-5 h-5 mr-2" />
-              Call Now
+              Talk to Our Gem Expert
             </a>
           </Button>
           <Button asChild size="lg" variant="outline" className="border-white text-white backdrop-blur-sm bg-white/10 min-w-[180px]">
@@ -164,7 +171,7 @@ function HeroSection() {
         </div>
         <button 
           onClick={scrollToProducts}
-          className="mt-12 text-primary"
+          className="mt-12 text-purple-300"
           aria-label="Scroll to see products"
           data-testid="button-scroll-down"
         >
