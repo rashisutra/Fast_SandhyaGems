@@ -33,7 +33,7 @@ const BUSINESS_INFO = {
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Sandhya+Gems+Corner+New+Barrackpore+Post+Office+Market+Kolkata+700131",
   staticMapUrl: "https://maps.googleapis.com/maps/api/staticmap?center=22.6983,88.4371&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7C22.6983,88.4371&key=placeholder",
   shopifyUrl: "https://sandhyagems.in",
-  collectionUrl: "https://sandhyagems.in/collections/all",
+  collectionUrl: "https://sandhyagems.in/collections/authentic-navratna-gemstones-online-sandhya-gems",
   hours: [
     { day: "Monday", hours: "10:00 AM - 9:30 PM", isShort: false },
     { day: "Tuesday", hours: "10:00 AM - 3:30 PM", isShort: true },
@@ -99,13 +99,10 @@ function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#1a365d]/95 backdrop-blur-sm border-b border-[#2a4a7a]">
       <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
-          <img 
-            src="/logo.jpg" 
-            alt="Sandhya Gems Corner" 
-            className="h-8 object-contain"
-            height="32"
-          />
+        <div className="flex items-center">
+          <span className="text-xl font-bold text-white tracking-wide">
+            <span className="text-purple-400">Sandhya</span> Gems Corner
+          </span>
         </div>
         <Button asChild size="sm">
           <a href={`tel:${BUSINESS_INFO.phone}`} data-testid="button-call-header">
@@ -296,7 +293,7 @@ function ProductsSection() {
                           data-testid={`button-buy-${product.id}`}
                         >
                           <ShoppingBag className="w-4 h-4 mr-1" />
-                          Quick Buy
+                          Know More
                         </a>
                       </Button>
                     </CardContent>
