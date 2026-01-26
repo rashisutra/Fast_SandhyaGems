@@ -747,7 +747,7 @@ export default function Home() {
       </main>
       <Footer />
       <WhatsAppButton />
-      <WelcomePopup />
+      {/* <WelcomePopup /> */}
     </div>
   );
 }

@@ -81,4 +81,4 @@ shared/
   - Added accessibility features: skip link, ARIA labels, role attributes
   - Performance: preload LCP hero image, critical CSS inline, font-display swap
   - Google Reviews testimonials section with 4.8 rating
-  - Welcome popup with WhatsApp redirect
+  - Welcome popup with WhatsApp redirect (currently disabled)
