@@ -6,10 +6,10 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  // Proxy endpoint for Shopify products to bypass CORS - fetches from navratna collection
+  // Proxy endpoint for Shopify products to bypass CORS - fetches from navaratna collection
   app.get("/api/products", async (req, res) => {
     try {
-      const response = await fetch("https://sandhyagems.in/collections/authentic-navratna-gemstones-online-sandhya-gems/products.json?limit=8");
+      const response = await fetch("https://sandhyagems.in/collections/navaratna/products.json?limit=8");
       if (!response.ok) {
         throw new Error(`Failed to fetch products: ${response.status}`);
       }

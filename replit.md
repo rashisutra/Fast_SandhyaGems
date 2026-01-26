@@ -64,7 +64,7 @@ shared/
 - **Speed optimized**: LCP hero image preloaded, critical CSS inlined, all images have width/height for CLS, lazy loading enabled
 
 ## API Routes
-- `GET /api/products` - Server-side proxy fetching from https://sandhyagems.in/collections/authentic-navratna-gemstones-online-sandhya-gems/products.json?limit=8
+- `GET /api/products` - Server-side proxy fetching from https://sandhyagems.in/collections/navaratna/products.json?limit=8
 
 ## Product Links
 - **Know More**: Links to product page at `https://sandhyagems.in/products/{handle}`

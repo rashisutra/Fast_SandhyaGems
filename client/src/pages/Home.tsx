@@ -33,7 +33,7 @@ const BUSINESS_INFO = {
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Sandhya+Gems+Corner+New+Barrackpore+Post+Office+Market+Kolkata+700131",
   staticMapUrl: "https://maps.googleapis.com/maps/api/staticmap?center=22.6983,88.4371&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7C22.6983,88.4371&key=placeholder",
   shopifyUrl: "https://sandhyagems.in",
-  collectionUrl: "https://sandhyagems.in/collections/all",
+  collectionUrl: "https://sandhyagems.in/collections/navaratna",
   hours: [
     { day: "Monday", hours: "10:00 AM - 9:30 PM", isShort: false },
     { day: "Tuesday", hours: "10:00 AM - 3:30 PM", isShort: true },
