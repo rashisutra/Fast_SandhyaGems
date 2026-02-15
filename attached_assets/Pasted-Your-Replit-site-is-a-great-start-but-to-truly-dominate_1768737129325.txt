@@ -1,0 +1,28 @@
+Your Replit site is a great start, but to truly dominate the Kolkata Map Pack and hit that 100/100 speed score, there are a few "final touches" you should apply. Since you are an engineer, you can likely fix these in one focused session.
+
+Here is the list of items you can improve right now:
+
+1. Performance: The "Perfect 100" Fixes
+Even a fast site can be slowed down by small technical oversights.
+
+Explicit Image Dimensions: Ensure every <img> tag in your Astro or HTML code has a width and height attribute. This prevents Cumulative Layout Shift (CLS), which is a major ranking factor for Google.
+
+Preload Your Hero Image: Add <link rel="preload" as="image" href="..."> in your <head> for the main banner. This makes the Largest Contentful Paint (LCP) nearly instant.
+
+WebP Everything: If any images are .png or .jpg, ask the Replit Agent to convert them to WebP. It reduces file size by up to 30% without losing quality.
+
+2. Local SEO: The "Kolkata Authority" Checklist
+To beat other local jewelers, your on-page text needs to signal "Local Trust" to Google's bots.
+
+Hyper-Local Keywords: Don't just say "Kolkata." Use phrases like "Best Panna stone shop in North 24 Parganas" or "Certified gemstones near New Barrackpore Station."
+
+NAP Consistency: Your Name, Address, and Phone (NAP) on this Replit page must match your Google Business Profile exactly. Even a difference between "St." and "Street" can matter.
+
+Localized Meta Description: Use this: "Sandhya Gems Corner: Authentic and certified gemstones in New Barrackpore, Kolkata. 24+ years of trust. Visit us for natural Panna, Moonga, and Manik stones."
+
+3. Conversion: The "Direct-to-Sell" Logic
+Since you are using the Best Seller collection, ensure the technical plumbing is seamless.
+
+Dynamic Pricing: Make sure the prices on your Replit site update automatically when you change them on Shopify. Using the products.json fetch we discussed handles this perfectly.
+
+The "Kolkata Advantage" CTA: Add a small badge next to the 8 products that says "In-Store Pickup Available (New Barrackpore)". Local customers often prefer to see the stone in person before the final payment.
