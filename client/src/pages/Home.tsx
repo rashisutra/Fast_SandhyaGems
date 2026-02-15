@@ -1,5 +1,5 @@
 import { useState, useEffect, memo, useCallback } from "react";
-import { Phone, MapPin, Clock, ExternalLink, Navigation, Store, Award, Users, ChevronDown, ShoppingBag, MessageCircle, X, Star, Shield, Truck, RotateCcw, Lock, ChevronRight, HelpCircle, Sparkles } from "lucide-react";
+import { Phone, MapPin, Clock, ExternalLink, Navigation, Store, Award, Users, ChevronDown, ShoppingBag, MessageCircle, X, Star, Shield, Truck, RotateCcw, Lock, ChevronRight, HelpCircle, Sparkles, Mail } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -74,6 +74,7 @@ const BUSINESS_INFO = {
   },
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Sandhya+Gems+Corner+New+Barrackpore+Post+Office+Market+Kolkata+700131",
   shopifyUrl: "https://sandhyagems.in",
+  email: "info@sandhyagems.in",
   collectionUrl: "https://sandhyagems.in/collections/best-gemstone-bracelets-online",
   hours: [
     { day: "Monday", hours: "10:00 AM - 9:30 PM", isShort: false },
@@ -185,15 +186,13 @@ function HeroSection() {
     <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center pt-16" aria-label="Healing Gemstone Bracelets & Crystals">
       <div className="absolute inset-0 bg-[#1a3c34]" aria-hidden="true">
         <img
-          src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=60"
-          srcSet="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=400&q=50 400w, https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=70 800w"
-          sizes="100vw"
+          src="/hero-bracelet.jpg"
           alt=""
           role="presentation"
           className="w-full h-full object-cover opacity-40"
-          style={{ aspectRatio: '4/3' }}
-          width="800"
-          height="600"
+          style={{ aspectRatio: '16/9' }}
+          width="1200"
+          height="675"
           fetchPriority="high"
           decoding="async"
         />
@@ -668,7 +667,7 @@ function LocationSection() {
               <div
                 className="w-full h-full bg-cover bg-center"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=70')`,
+                  backgroundImage: `url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=50')`,
                   backgroundColor: '#e5e7eb',
                   aspectRatio: '16/9',
                 }}
@@ -704,6 +703,12 @@ function LocationSection() {
                       {BUSINESS_INFO.address.landmark}
                     </p>
                   </div>
+                </div>
+                <div className="flex items-start gap-3 mb-6">
+                  <Mail className="w-5 h-5 text-[#d4a853] flex-shrink-0 mt-0.5" />
+                  <a href={`mailto:${BUSINESS_INFO.email}`} className="text-muted-foreground hover:text-foreground transition-colors">
+                    {BUSINESS_INFO.email}
+                  </a>
                 </div>
                 <Button asChild className="w-full bg-[#1a3c34] hover:bg-[#2a5c4a]">
                   <a
@@ -844,6 +849,15 @@ function Footer() {
             >
               <Store className="w-4 h-4" aria-hidden="true" />
               Visit our Kolkata Store
+            </a>
+            <a
+              href={`mailto:${BUSINESS_INFO.email}`}
+              className="hover:text-foreground flex items-center gap-1"
+              data-testid="link-email-footer"
+              aria-label={`Email us at ${BUSINESS_INFO.email}`}
+            >
+              <Mail className="w-4 h-4" aria-hidden="true" />
+              {BUSINESS_INFO.email}
             </a>
             <a
               href={BUSINESS_INFO.collectionUrl}
