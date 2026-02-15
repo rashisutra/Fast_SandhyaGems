@@ -50,6 +50,7 @@ interface ShopifyProduct {
   id: number;
   title: string;
   handle: string;
+  created_at: string;
   images: Array<{ src: string }>;
   variants: Array<{ id: number; price: string; compare_at_price: string | null }>;
 }
@@ -323,7 +324,9 @@ function ProductsSection() {
     queryKey: ['/api/products'],
   });
 
-  const products = data?.products?.slice(0, 12) || [];
+  const products = [...(data?.products || [])]
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .slice(0, 12);
 
   return (
     <section id="products" className="py-12 md:py-16 bg-background scroll-mt-16">
