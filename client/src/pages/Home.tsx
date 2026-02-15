@@ -51,7 +51,7 @@ interface ShopifyProduct {
   title: string;
   handle: string;
   images: Array<{ src: string }>;
-  variants: Array<{ id: number; price: string }>;
+  variants: Array<{ id: number; price: string; compare_at_price: string | null }>;
 }
 
 interface ShopifyResponse {
@@ -388,9 +388,27 @@ function ProductsSection() {
                         <h3 className="font-medium text-sm line-clamp-2 mb-1.5" title={product.title}>
                           {product.title}
                         </h3>
-                        <p className="text-[#1a3c34] font-bold text-base mb-2">
-                          {formatPrice(product.variants[0]?.price || "0")}
-                        </p>
+                        <div className="mb-2">
+                          {product.variants[0]?.compare_at_price && parseFloat(product.variants[0].compare_at_price) > parseFloat(product.variants[0].price) ? (
+                            <>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[#1a3c34] font-bold text-base">
+                                  {formatPrice(product.variants[0].price)}
+                                </span>
+                                <span className="text-muted-foreground text-xs line-through">
+                                  {formatPrice(product.variants[0].compare_at_price)}
+                                </span>
+                              </div>
+                              <span className="text-[#25a55f] text-xs font-semibold">
+                                {Math.round(((parseFloat(product.variants[0].compare_at_price) - parseFloat(product.variants[0].price)) / parseFloat(product.variants[0].compare_at_price)) * 100)}% off
+                              </span>
+                            </>
+                          ) : (
+                            <span className="text-[#1a3c34] font-bold text-base">
+                              {formatPrice(product.variants[0]?.price || "0")}
+                            </span>
+                          )}
+                        </div>
                         <div className="mt-auto flex flex-col gap-1.5">
                           <Button asChild size="sm" className="w-full bg-[#1a3c34] hover:bg-[#2a5c4a] text-white">
                             <a
