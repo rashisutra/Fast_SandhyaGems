@@ -62,8 +62,7 @@ setInterval(() => {
 
 // ── Security headers middleware ────────────────────────
 function securityHeaders(_req: Request, res: Response, next: NextFunction): void {
-  // Prevent clickjacking
-  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  // Allow iframe embedding in development (Replit preview)
   // Prevent MIME-type sniffing
   res.setHeader("X-Content-Type-Options", "nosniff");
   // Enable XSS protection
@@ -86,8 +85,8 @@ function securityHeaders(_req: Request, res: Response, next: NextFunction): void
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: https: blob:",
-      "connect-src 'self' https://wa.me https://sandhyagems.in",
-      "frame-ancestors 'self'",
+      "connect-src 'self' https://wa.me https://sandhyagems.in ws: wss:",
+      "frame-ancestors *",
     ].join("; ")
   );
   next();
