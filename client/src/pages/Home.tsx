@@ -205,7 +205,7 @@ function HeroSection() {
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 drop-shadow-lg leading-tight">
           Wear the Energy: Authentic<br className="hidden sm:block" />
-          <span className="text-[#d4a853]">Gemstone Bracelets</span> &amp; Healing Crystals
+          <span className="text-[#d4a853]"> Gemstone Bracelets</span> &amp; Healing Crystals
         </h1>
         <p className="text-base sm:text-lg md:text-xl text-emerald-200 mb-3 max-w-2xl mx-auto font-medium">
           100% Certified Natural Stones. Ethically Sourced. Energized for You.
