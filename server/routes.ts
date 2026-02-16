@@ -81,11 +81,11 @@ function securityHeaders(_req: Request, res: Response, next: NextFunction): void
     "Content-Security-Policy",
     [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://connect.facebook.net",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: https: blob:",
-      "connect-src 'self' https://wa.me https://sandhyagems.in ws: wss:",
+      "connect-src 'self' https://wa.me https://sandhyagems.in https://www.facebook.com ws: wss:",
       "frame-ancestors *",
     ].join("; ")
   );
