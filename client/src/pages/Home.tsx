@@ -159,10 +159,10 @@ function Header() {
           <GemLogo className="w-8 h-8" />
           <div className="flex flex-col leading-none">
             <span className="text-lg font-bold text-white tracking-wide">Sandhya <span className="text-[#d4a853]">Gems</span></span>
-            <span className="text-[9px] text-emerald-300/60 tracking-[0.15em] uppercase font-medium hidden sm:block">Since 2000 • Kolkata</span>
+            <span className="text-[9px] text-[#FDF5E6]/60 tracking-[0.15em] uppercase font-medium hidden sm:block">Since 2000 • Kolkata</span>
           </div>
         </a>
-        <Button asChild size="sm" className="bg-[#d4a853] hover:bg-[#c49a48] text-[#1a3c34] font-semibold">
+        <Button asChild size="sm" variant="outline" className="border-[#d4a853]/60 text-[#d4a853] bg-transparent hover:bg-[#d4a853]/10 font-semibold">
           <a href={BUSINESS_INFO.collectionUrl} target="_blank" rel="noopener noreferrer" data-testid="button-shop-header" aria-label="Shop our collection">
             <ShoppingBag className="w-4 h-4 mr-2" aria-hidden="true" />
             <span className="hidden sm:inline">Shop Now</span>
@@ -197,9 +197,10 @@ function HeroSection() {
           decoding="async"
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1a3c34] via-[#1a3c34]/60 to-[#1a3c34]/30" aria-hidden="true" />
+      <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1a3c34] via-transparent to-transparent" aria-hidden="true" />
       <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-        <div className="inline-flex items-center gap-2 bg-[#d4a853]/20 border border-[#d4a853]/40 rounded-full px-4 py-1.5 mb-6">
+        <div className="inline-flex items-center gap-2 bg-[#d4a853]/20 border border-[#d4a853]/40 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm">
           <Sparkles className="w-4 h-4 text-[#d4a853]" />
           <span className="text-[#d4a853] text-sm font-medium">25+ Years of Trust</span>
         </div>
@@ -207,18 +208,18 @@ function HeroSection() {
           Wear the Energy: Authentic<br className="hidden sm:block" />
           <span className="text-[#d4a853]"> Gemstone Bracelets</span> &amp; Healing Crystals
         </h1>
-        <p className="text-base sm:text-lg md:text-xl text-emerald-200 mb-3 max-w-2xl mx-auto font-medium">
+        <p className="text-base sm:text-lg md:text-xl text-white font-semibold mb-3 max-w-2xl mx-auto drop-shadow-md">
           100% Certified Natural Stones. Ethically Sourced. Energized for You.
         </p>
-        <p className="text-sm text-emerald-300/70 mb-8">Handpicked crystals for health, wealth & spiritual well-being</p>
+        <p className="text-sm sm:text-base text-[#FDF5E6] font-medium mb-8 drop-shadow-sm">Handpicked crystals for health, wealth & spiritual well-being</p>
         <nav className="flex flex-col sm:flex-row items-center justify-center gap-4" aria-label="Shop actions">
-          <Button asChild size="lg" className="min-w-[200px] bg-[#d4a853] hover:bg-[#c49a48] text-[#1a3c34] font-semibold text-base shadow-xl hover:shadow-2xl transition-all">
+          <Button asChild size="lg" className="min-w-[200px] bg-gradient-to-r from-[#d4a853] to-[#c47d2e] hover:from-[#c49a48] hover:to-[#b36e25] text-[#1a3c34] font-bold text-base shadow-[0_4px_20px_rgba(212,168,83,0.4)] hover:shadow-[0_6px_28px_rgba(212,168,83,0.5)] transition-all">
             <a href="#products" onClick={(e) => { e.preventDefault(); scrollToProducts(); }} data-testid="button-shop-hero" aria-label="Browse our bracelet collection">
               <ShoppingBag className="w-5 h-5 mr-2" aria-hidden="true" />
               Shop Collection
             </a>
           </Button>
-          <Button asChild size="lg" variant="outline" className="border-white/30 text-white backdrop-blur-sm bg-white/10 min-w-[200px] hover:bg-white/20 transition-all">
+          <Button asChild size="lg" variant="outline" className="border-white/30 text-white/80 backdrop-blur-sm bg-[#1a3c34]/40 min-w-[200px] hover:bg-[#1a3c34]/60 hover:text-white transition-all">
             <a
               href={`https://wa.me/${BUSINESS_INFO.whatsapp}?text=${encodeURIComponent('Hi Sandhya Gems, I saw your Bracelet collection and want to know more.')}`}
               target="_blank"
@@ -231,9 +232,10 @@ function HeroSection() {
             </a>
           </Button>
         </nav>
+        <p className="mt-5 text-[#FDF5E6]/90 text-sm font-medium tracking-wide">⭐⭐⭐⭐⭐ 4.9/5 Rating | 25+ Years of Legacy</p>
         <button
           onClick={scrollToProducts}
-          className="mt-12 text-[#d4a853] animate-bounce"
+          className="mt-8 text-[#d4a853] animate-bounce"
           aria-label="Scroll down to view our bracelet collection"
           data-testid="button-scroll-down"
           type="button"
@@ -261,13 +263,13 @@ function BenefitIconsBar() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide sm:grid sm:grid-cols-4 sm:overflow-visible sm:pb-0">
           {benefits.map((benefit, i) => (
-            <div key={i} className="flex-shrink-0 flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3 min-w-[200px] sm:min-w-0 backdrop-blur-sm border border-white/10">
-              <div className="w-10 h-10 rounded-full bg-[#d4a853]/20 flex items-center justify-center flex-shrink-0">
+            <div key={i} className="flex-shrink-0 flex items-center gap-3 bg-white/10 rounded-2xl px-5 py-4 min-w-[210px] sm:min-w-0 backdrop-blur-md border border-white/20 shadow-lg">
+              <div className="w-11 h-11 rounded-full bg-[#d4a853]/20 flex items-center justify-center flex-shrink-0">
                 <benefit.icon className="w-5 h-5 text-[#d4a853]" aria-hidden="true" />
               </div>
               <div>
                 <p className="text-white font-semibold text-sm whitespace-nowrap">{benefit.label}</p>
-                <p className="text-emerald-200/70 text-xs">{benefit.desc}</p>
+                <p className="text-[#FDF5E6]/70 text-xs font-medium">{benefit.desc}</p>
               </div>
             </div>
           ))}
