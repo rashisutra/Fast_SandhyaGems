@@ -132,22 +132,39 @@
   }
 
   // ===== LOAD PRODUCTS FROM API =====
+  var SHOPIFY_URL = 'https://sandhyagems.in/collections/navaratna/products.json?limit=8';
+  var PROXY_URL   = '/api/products';
+
+  function parseAndRender(data) {
+    var products = (data.products || []).slice(0, 8);
+    if (products.length > 0) {
+      renderProducts(products);
+      return true;
+    }
+    return false;
+  }
+
   function loadProducts() {
-    fetch('/api/products')
+    fetch(SHOPIFY_URL)
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
       .then(function (data) {
-        var products = (data.products || []).slice(0, 8);
-        if (products.length > 0) {
-          renderProducts(products);
-        } else {
-          renderFallback();
-        }
+        if (!parseAndRender(data)) renderFallback();
       })
       .catch(function () {
-        renderFallback();
+        fetch(PROXY_URL)
+          .then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          })
+          .then(function (data) {
+            if (!parseAndRender(data)) renderFallback();
+          })
+          .catch(function () {
+            renderFallback();
+          });
       });
   }
 
