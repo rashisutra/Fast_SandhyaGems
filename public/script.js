@@ -110,7 +110,9 @@
       var productUrl = 'https://sandhyagems.in/products/' + p.handle;
       card.innerHTML =
         '<div class="product-img-wrap">' +
-          '<img src="' + imgSrc + '" alt="' + p.title + '" class="product-img" loading="lazy" width="400" height="400" decoding="async" />' +
+          '<a href="' + productUrl + '" target="_blank" rel="noopener noreferrer" aria-label="View ' + p.title + ' on Sandhya Gems online store">' +
+            '<img src="' + imgSrc + '" alt="' + p.title + '" class="product-img" loading="lazy" width="400" height="400" decoding="async" />' +
+          '</a>' +
         '</div>' +
         '<div class="product-info">' +
           '<h3 class="product-title" title="' + p.title + '">' + p.title + '</h3>' +

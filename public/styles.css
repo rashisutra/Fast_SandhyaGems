@@ -316,6 +316,11 @@ address { font-style: normal; }
   overflow: hidden;
   background: #f0f0f0;
 }
+.product-img-wrap a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .product-img {
   width: 100%;
   height: 100%;
