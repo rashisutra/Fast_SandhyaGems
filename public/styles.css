@@ -11,9 +11,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Mobile: reserve space for sticky bottom bar */
+@media (max-width: 639px) {
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+}
+
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 address { font-style: normal; }
+
+/* Remove tap flash on mobile */
+a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 
 /* ===== SKIP LINK ===== */
 .skip-link {
@@ -600,6 +608,101 @@ address { font-style: normal; }
 
 /* ===== NOT ITALIC UTILITY ===== */
 .not-italic { font-style: normal; }
+
+/* ===== MOBILE ACTION BAR ===== */
+.mobile-action-bar {
+  display: none;
+}
+@media (max-width: 639px) {
+  .mobile-action-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #fff;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.12);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  /* Hide FAB on mobile – action bar covers it */
+  .whatsapp-btn { display: none; }
+}
+.bar-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.625rem 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  min-height: 56px;
+  -webkit-tap-highlight-color: transparent;
+}
+.bar-btn-call {
+  background: #6b46c1;
+  color: #fff;
+}
+.bar-btn-call:hover { background: #553c9a; }
+.bar-btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+.bar-btn-whatsapp:hover { background: #1da851; }
+.bar-btn-map {
+  background: #f7f8fa;
+  color: #1a365d;
+  border-right: 1px solid #e2e8f0;
+  border-left: 1px solid #e2e8f0;
+}
+.bar-btn-map:hover { background: #edf0f7; }
+.bar-btn-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ===== MOBILE-SPECIFIC IMPROVEMENTS ===== */
+@media (max-width: 639px) {
+  /* Tighter section padding on mobile */
+  .section { padding: 2rem 0; }
+
+  /* Hero section */
+  .hero { min-height: 100svh; min-height: 100vh; }
+  .hero-address { font-size: 0.8125rem; flex-wrap: wrap; }
+
+  /* Product buttons — larger touch targets */
+  .product-btn { padding: 0.625rem 0.75rem; font-size: 0.875rem; min-height: 44px; }
+
+  /* Product grid tighter gap on small screens */
+  .products-grid { gap: 0.625rem; }
+
+  /* Map pin card – prevent overflow on tiny screens */
+  .map-pin-card { max-width: calc(100vw - 4rem); }
+  .map-pin-address { font-size: 0.75rem; }
+  .map-pin-name { font-size: 0.875rem; }
+
+  /* Ensure buttons don't exceed screen */
+  .btn-lg { min-width: 0; width: 100%; }
+  .hero-cta .btn-lg { width: auto; min-width: 160px; }
+
+  /* Footer copy readable size */
+  .footer-copy { font-size: 0.8125rem; }
+
+  /* FAQ items larger tap zone */
+  .faq-question { padding: 1.125rem 1rem; font-size: 0.9375rem; }
+
+  /* Hours row larger tap zone */
+  .hours-row { padding: 0.875rem 1rem; }
+
+  /* Wider container padding on mobile */
+  .container { padding: 0 1.125rem; }
+}
 
 /* ===== AREAS WE SERVE ===== */
 .areas-grid {
