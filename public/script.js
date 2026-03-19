@@ -168,12 +168,23 @@
       });
   }
 
+  // ===== WHATSAPP BUTTON =====
+  function initWhatsApp() {
+    var btn = document.querySelector('[data-testid="button-whatsapp"]');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.open(btn.href, '_blank', 'noopener,noreferrer');
+    });
+  }
+
   // ===== INIT =====
   function init() {
     updateStoreStatus();
     highlightToday();
     setFooterYear();
     loadProducts();
+    initWhatsApp();
   }
 
   if (document.readyState === 'loading') {
