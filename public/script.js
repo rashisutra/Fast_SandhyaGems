@@ -1,69 +1,17 @@
 (function () {
   'use strict';
 
-  // ===== BUSINESS HOURS CONFIG =====
-  var HOURS = [
-    { day: 'Sunday',    hours: '10:00 AM - 9:30 PM',  isShort: false },
-    { day: 'Monday',    hours: '10:00 AM - 9:30 PM',  isShort: false },
-    { day: 'Tuesday',   hours: '10:00 AM - 3:30 PM',  isShort: true  },
-    { day: 'Wednesday', hours: '10:00 AM - 9:30 PM',  isShort: false },
-    { day: 'Thursday',  hours: '10:00 AM - 3:30 PM',  isShort: true  },
-    { day: 'Friday',    hours: '10:00 AM - 9:30 PM',  isShort: false },
-    { day: 'Saturday',  hours: '10:00 AM - 9:30 PM',  isShort: false },
-  ];
-
   // ===== HARD-CODED FALLBACK PRODUCTS =====
   var FALLBACK_PRODUCTS = [
-    { title: 'Natural Panna (Emerald) Stone', handle: 'panna-emerald', price: '₹1,500', img: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?w=400&q=70&auto=format' },
-    { title: 'Natural Moonga (Coral) Stone', handle: 'moonga-coral', price: '₹800', img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=70&auto=format' },
-    { title: 'Natural Manik (Ruby) Stone', handle: 'manik-ruby', price: '₹2,500', img: 'https://images.unsplash.com/photo-1573408301185-9519f94e6a44?w=400&q=70&auto=format' },
-    { title: 'Natural Pukhraj (Yellow Sapphire)', handle: 'pukhraj-yellow-sapphire', price: '₹3,000', img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=70&auto=format' },
-    { title: 'Natural Neelam (Blue Sapphire)', handle: 'neelam-blue-sapphire', price: '₹4,500', img: 'https://images.unsplash.com/photo-1608751819407-ed6af4f95117?w=400&q=70&auto=format' },
-    { title: 'Natural Heera (Diamond) Stone', handle: 'heera-diamond', price: '₹10,000', img: 'https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=400&q=70&auto=format' },
-    { title: 'Natural Moti (Pearl) Stone', handle: 'moti-pearl', price: '₹500', img: 'https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=400&q=70&auto=format' },
-    { title: 'Natural Gomedh (Hessonite)', handle: 'gomedh-hessonite', price: '₹1,200', img: 'https://images.unsplash.com/photo-1617952739169-a9b0a1f7ebac?w=400&q=70&auto=format' },
+    { title: 'Natural Manik (Ruby) Stone', handle: 'manik-ruby', price: '\u20B92,500', img: 'https://images.unsplash.com/photo-1573408301185-9519f94e6a44?w=400&q=70&auto=format' },
+    { title: 'Natural Moti (Pearl) Stone', handle: 'moti-pearl', price: '\u20B9500', img: 'https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=400&q=70&auto=format' },
+    { title: 'Natural Moonga (Red Coral) Stone', handle: 'moonga-coral', price: '\u20B9800', img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=70&auto=format' },
+    { title: 'Natural Panna (Emerald) Stone', handle: 'panna-emerald', price: '\u20B91,500', img: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?w=400&q=70&auto=format' },
+    { title: 'Natural Pukhraj (Yellow Sapphire)', handle: 'pukhraj-yellow-sapphire', price: '\u20B93,000', img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=70&auto=format' },
+    { title: 'Natural Heera (Diamond) Stone', handle: 'heera-diamond', price: '\u20B910,000', img: 'https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=400&q=70&auto=format' },
+    { title: 'Natural Neelam (Blue Sapphire)', handle: 'neelam-blue-sapphire', price: '\u20B94,500', img: 'https://images.unsplash.com/photo-1608751819407-ed6af4f95117?w=400&q=70&auto=format' },
+    { title: 'Natural Gomedh (Hessonite)', handle: 'gomedh-hessonite', price: '\u20B91,200', img: 'https://images.unsplash.com/photo-1617952739169-a9b0a1f7ebac?w=400&q=70&auto=format' },
   ];
-
-  // ===== STORE STATUS =====
-  function updateStoreStatus() {
-    var now = new Date();
-    var dayIndex = now.getDay();
-    var today = HOURS[dayIndex];
-    var currentTime = now.getHours() * 60 + now.getMinutes();
-    var openTime = 10 * 60;
-    var closeTime = (today.isShort ? 15 : 21) * 60 + 30;
-    var isOpen = currentTime >= openTime && currentTime <= closeTime;
-
-    var badge = document.getElementById('store-status-badge');
-    var hoursText = document.getElementById('store-hours-text');
-
-    if (badge) {
-      badge.textContent = isOpen ? 'Open Now' : 'Closed';
-      badge.className = 'status-badge ' + (isOpen ? 'status-open' : 'status-closed');
-    }
-    if (hoursText) {
-      hoursText.textContent = 'Today: ' + today.hours;
-    }
-  }
-
-  // ===== HIGHLIGHT TODAY IN HOURS TABLE =====
-  function highlightToday() {
-    var now = new Date();
-    var dayIndex = now.getDay();
-    var dayNames = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
-    var todayId = 'hours-' + dayNames[dayIndex];
-    var row = document.getElementById(todayId);
-    if (!row) return;
-    row.classList.add('is-today');
-    var daySpan = row.querySelector('.hours-day');
-    if (daySpan) {
-      daySpan.classList.add('is-today');
-      var badge = document.createElement('span');
-      badge.className = 'today-badge';
-      badge.textContent = 'Today';
-      daySpan.appendChild(badge);
-    }
-  }
 
   // ===== FOOTER YEAR =====
   function setFooterYear() {
@@ -74,7 +22,7 @@
   // ===== FORMAT PRICE =====
   function formatPrice(price) {
     var num = parseFloat(price);
-    if (isNaN(num)) return '₹0';
+    if (isNaN(num)) return '\u20B90';
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
@@ -182,8 +130,6 @@
 
   // ===== INIT =====
   function init() {
-    updateStoreStatus();
-    highlightToday();
     setFooterYear();
     loadProducts();
     initWhatsApp();
