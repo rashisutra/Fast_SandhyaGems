@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -368,6 +369,7 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
   gap: 0.25rem;
   width: 100%;
   padding: 0.4rem 0.75rem;
+  min-height: 44px;
   background: #6b46c1;
   color: #fff;
   border-radius: 0.375rem;
@@ -440,6 +442,7 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
   background: #6b46c1;
   color: #fff;
   padding: 0.5rem 1rem;
+  min-height: 44px;
   border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -695,13 +698,19 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
   .footer-copy { font-size: 0.8125rem; }
 
   /* FAQ items larger tap zone */
-  .faq-question { padding: 1.125rem 1rem; font-size: 0.9375rem; }
+  .faq-question { padding: 1.25rem 1rem; font-size: 0.9375rem; min-height: 48px; }
 
   /* Hours row larger tap zone */
   .hours-row { padding: 0.875rem 1rem; }
 
   /* Wider container padding on mobile */
   .container { padding: 0 1.125rem; }
+}
+
+/* ===== VERY SMALL SCREENS ===== */
+@media (max-width: 359px) {
+  .btn-lg, .hero-cta .btn-lg { min-width: 0; width: 100%; }
+  .product-info { padding: 0.875rem; }
 }
 
 /* ===== AREAS WE SERVE ===== */
@@ -791,6 +800,13 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
   margin-bottom: 2rem;
   font-size: 0.9375rem;
 }
+.hero-email-link {
+  color: #e2e8f0;
+  text-decoration: underline;
+}
+.hero-email-link:hover {
+  color: #fff;
+}
 
 /* ===== NAVAGRAHA GRID ===== */
 .navagraha-grid {
@@ -852,6 +868,33 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
   font-size: 1.25rem;
   font-weight: 700;
   margin: 0 auto 1rem;
+}
+
+/* ===== RASHISUTRA SECTION ===== */
+.rashisutra-features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+.rashisutra-feature {
+  background: #fff;
+  border: 1.5px solid #6b46c1;
+  color: #6b46c1;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.rashisutra-powered {
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  color: #718096;
+}
+.rashisutra-powered a {
+  color: #6b46c1;
+  text-decoration: underline;
 }
 
 /* ===== TRUST 4-COLUMN ===== */
