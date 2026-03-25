@@ -134,7 +134,7 @@
   }
 
   // ===== LOAD PRODUCTS FROM API =====
-  var SHOPIFY_URL = 'https://sandhyagems.in/collections/navaratna/products.json?limit=8';
+  var SHOPIFY_URL = 'https://sandhyagems.in/collections/navarat/products.json?limit=8';
   var PROXY_URL   = '/api/products';
 
   function parseAndRender(data) {

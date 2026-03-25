@@ -2,6 +2,7 @@ import http from 'http';
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
+import zlib from 'zlib';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,7 +25,7 @@ const MIME = {
 function proxyShopify(res) {
   var options = {
     hostname: 'sandhyagems.in',
-    path: '/collections/navaratna/products.json?limit=8',
+    path: '/collections/navarat/products.json?limit=8',
     method: 'GET',
     headers: {
       'User-Agent': 'Mozilla/5.0 (compatible; SandhyaGemsBot/1.0)',
@@ -58,7 +59,42 @@ function proxyShopify(res) {
   req.end();
 }
 
-function serveFile(filePath, res) {
+const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.json', '.svg', '.txt']);
+const STATIC_ASSET_EXT = new Set(['.css', '.js', '.jpg', '.jpeg', '.png', '.webp', '.svg', '.ico']);
+
+function getCacheHeader(ext) {
+  if (STATIC_ASSET_EXT.has(ext)) {
+    return 'public, max-age=31536000, immutable';
+  }
+  return 'no-cache';
+}
+
+function sendResponse(req, res, statusCode, headers, data) {
+  var ext = (headers['X-Ext'] || '').toLowerCase();
+  delete headers['X-Ext'];
+
+  if (COMPRESSIBLE.has(ext)) {
+    var acceptEncoding = (req.headers['accept-encoding'] || '');
+    if (acceptEncoding.includes('gzip')) {
+      zlib.gzip(data, function (err, compressed) {
+        if (err) {
+          res.writeHead(statusCode, headers);
+          res.end(data);
+        } else {
+          headers['Content-Encoding'] = 'gzip';
+          headers['Vary'] = 'Accept-Encoding';
+          res.writeHead(statusCode, headers);
+          res.end(compressed);
+        }
+      });
+      return;
+    }
+  }
+  res.writeHead(statusCode, headers);
+  res.end(data);
+}
+
+function serveFile(filePath, req, res) {
   var ext = path.extname(filePath).toLowerCase();
   var contentType = MIME[ext] || 'application/octet-stream';
 
@@ -69,14 +105,20 @@ function serveFile(filePath, res) {
           res.writeHead(404, { 'Content-Type': 'text/plain' });
           res.end('Not found');
         } else {
-          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-          res.end(html);
+          sendResponse(req, res, 200, {
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cache-Control': 'no-cache',
+            'X-Ext': '.html'
+          }, html);
         }
       });
       return;
     }
-    res.writeHead(200, { 'Content-Type': contentType });
-    res.end(data);
+    sendResponse(req, res, 200, {
+      'Content-Type': contentType,
+      'Cache-Control': getCacheHeader(ext),
+      'X-Ext': ext
+    }, data);
   });
 }
 
@@ -96,7 +138,7 @@ const server = http.createServer(function (req, res) {
     return;
   }
 
-  serveFile(filePath, res);
+  serveFile(filePath, req, res);
 });
 
 server.listen(PORT, function () {
