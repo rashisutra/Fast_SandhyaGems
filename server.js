@@ -24,7 +24,7 @@ const MIME = {
 function proxyShopify(res) {
   var options = {
     hostname: 'sandhyagems.in',
-    path: '/collections/navaratna/products.json?limit=8',
+    path: '/collections/navarat/products.json?limit=9',
     method: 'GET',
     headers: {
       'User-Agent': 'Mozilla/5.0 (compatible; SandhyaGemsBot/1.0)',

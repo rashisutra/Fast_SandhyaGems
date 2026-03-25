@@ -36,7 +36,7 @@
     if (!url || url.indexOf('cdn.shopify.com') === -1) return url;
     try {
       var u = new URL(url);
-      u.searchParams.set('width', width || '400');
+      u.searchParams.set('width', width || '300');
       u.searchParams.set('format', 'webp');
       return u.toString();
     } catch (e) {
@@ -49,27 +49,32 @@
     var grid = document.getElementById('products-grid');
     if (!grid) return;
     grid.innerHTML = '';
-    products.forEach(function (p) {
-      var card = document.createElement('div');
-      card.className = 'product-card';
-      card.setAttribute('data-testid', 'product-card-' + (p.id || p.handle));
-      var imgSrc = p.img || optimizeImage((p.images && p.images[0] && p.images[0].src) || '', 400);
-      var price = p.price || formatPrice((p.variants && p.variants[0] && p.variants[0].price) || '0');
+    products.forEach(function (p, i) {
       var productUrl = 'https://sandhyagems.in/products/' + p.handle;
+      var card = document.createElement('a');
+      card.className = 'product-card';
+      card.href = productUrl;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      card.setAttribute('data-testid', 'product-card-' + (p.id || p.handle));
+      card.setAttribute('aria-label', p.title + ' – View on Sandhya Gems');
+      var imgSrc = p.img || optimizeImage((p.images && p.images[0] && p.images[0].src) || '', 300);
+      var price = p.price || formatPrice((p.variants && p.variants[0] && p.variants[0].price) || '0');
+      var isEager = i < 4;
       card.innerHTML =
         '<div class="product-img-wrap">' +
-          '<a href="' + productUrl + '" target="_blank" rel="noopener noreferrer" aria-label="View ' + p.title + ' on Sandhya Gems online store">' +
-            '<img src="' + imgSrc + '" alt="' + p.title + '" class="product-img" loading="lazy" width="400" height="400" decoding="async" />' +
-          '</a>' +
+          '<img src="' + imgSrc + '" alt="' + p.title + '" class="product-img"' +
+          ' loading="' + (isEager ? 'eager' : 'lazy') + '"' +
+          ' width="300" height="300" decoding="async" />' +
         '</div>' +
         '<div class="product-info">' +
           '<h3 class="product-title" title="' + p.title + '">' + p.title + '</h3>' +
           '<p class="product-price">' + price + '</p>' +
           '<div class="product-btn-wrap">' +
-            '<a href="' + productUrl + '" target="_blank" rel="noopener noreferrer" class="product-btn" data-testid="button-buy-' + (p.id || p.handle) + '">' +
+            '<span class="product-btn" data-testid="button-buy-' + (p.id || p.handle) + '">' +
               '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
               'Know More' +
-            '</a>' +
+            '</span>' +
           '</div>' +
         '</div>';
       grid.appendChild(card);
@@ -82,11 +87,11 @@
   }
 
   // ===== LOAD PRODUCTS FROM API =====
-  var SHOPIFY_URL = 'https://sandhyagems.in/collections/navaratna/products.json?limit=8';
   var PROXY_URL   = '/api/products';
+  var SHOPIFY_URL = 'https://sandhyagems.in/collections/navarat/products.json?limit=9';
 
   function parseAndRender(data) {
-    var products = (data.products || []).slice(0, 8);
+    var products = (data.products || []).slice(0, 9);
     if (products.length > 0) {
       renderProducts(products);
       return true;
@@ -95,26 +100,22 @@
   }
 
   function loadProducts() {
-    fetch(SHOPIFY_URL)
+    // Proxy-first: faster (same origin), then direct Shopify as fallback
+    fetch(PROXY_URL)
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
       .then(function (data) {
-        if (!parseAndRender(data)) renderFallback();
+        if (!parseAndRender(data)) {
+          return fetch(SHOPIFY_URL)
+            .then(function (res) { return res.json(); })
+            .then(function (d) { if (!parseAndRender(d)) renderFallback(); })
+            .catch(renderFallback);
+        }
       })
       .catch(function () {
-        fetch(PROXY_URL)
-          .then(function (res) {
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            return res.json();
-          })
-          .then(function (data) {
-            if (!parseAndRender(data)) renderFallback();
-          })
-          .catch(function () {
-            renderFallback();
-          });
+        renderFallback();
       });
   }
 
