@@ -36,7 +36,6 @@ server.js          # Minimal static file server + /api/products Shopify proxy
 - **Location**: Map image linking to Google Maps, address card
 - **Business Hours**: Weekly schedule, today highlighted by JS
 - **Trust**: 25+ years, 10,000+ customers, physical store
-- **Testimonials**: Google Reviews — 4.8 rating, 3 reviews
 - **CTA**: Links to Shopify store
 - **Footer**: NAP (Name, Address, Phone) for local SEO
 
@@ -78,6 +77,23 @@ server.js          # Minimal static file server + /api/products Shopify proxy
 - **View All Products**: Links to `https://sandhyagems.in/collections/all`
 
 ## Recent Changes
+- August 2026: Performance pass
+  - Self-hosted the hero image and location map image (`public/hero.webp`, `public/map-preview.webp`) — no more external Unsplash round-trip on page load
+  - Self-hosted Inter font (`public/fonts/*.woff2`) — dropped the fonts.googleapis.com/fonts.gstatic.com dependency entirely
+  - Added Brotli compression in server.js (prefers `br` over `gzip` when the browser supports it)
+  - Tightened CSP now that fonts are self-hosted; fixed a CSP bug that was silently blocking Google Analytics collection requests
+  - Replaced the placeholder "50+ reviews" mention with a real link: "4.8 · 129 Google Reviews" sourced from the actual verified Google Business Profile, linking out to Google search results
+
+- August 2026: Site audit fixes
+  - Removed leftover `package.json`/`package-lock.json`/`node_modules`/`script/` — server.js has zero dependencies, deploy no longer runs `npm install`
+  - Removed fabricated "Google Reviews" testimonials section and the matching fake Review/AggregateRating JSON-LD (was never a real Google integration)
+  - Fixed canonical/OG/schema URLs — were pointing at `fast.sandhyagems.in`, now correctly `buy.sandhyagems.in`
+  - Swapped the 1.1MB favicon.png (which had been deleted, breaking 6 references) for a proper small icon; og:image/twitter:image/schema now use `logo.jpg` instead
+  - Escaped HTML in `script.js` product rendering to close a stored-XSS vector from Shopify product data
+  - Added security headers (CSP, X-Frame-Options, HSTS, etc.) in server.js
+  - Added `public/robots.txt` and `public/sitemap.xml`
+  - `deploy.py` now uses SSH key auth instead of a hardcoded root password
+
 - March 2026: Converted from React/TypeScript/Express monorepo to plain HTML/CSS/JS
   - Removed React, TypeScript, Drizzle ORM, PostgreSQL, shadcn, React Query
   - Single `server.js` replaces full Express server

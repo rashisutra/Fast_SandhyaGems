@@ -20,6 +20,8 @@ const MIME = {
   '.svg':  'image/svg+xml',
   '.ico':  'image/x-icon',
   '.txt':  'text/plain',
+  '.xml':  'application/xml; charset=utf-8',
+  '.woff2': 'font/woff2',
 };
 
 function proxyShopify(res) {
@@ -34,7 +36,7 @@ function proxyShopify(res) {
   };
   var req = https.request(options, function (shopifyRes) {
     if (shopifyRes.statusCode >= 300 && shopifyRes.statusCode < 400 && shopifyRes.headers.location) {
-      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.writeHead(500, withSecurityHeaders({ 'Content-Type': 'application/json' }));
       res.end(JSON.stringify({ error: 'Redirect', products: [] }));
       return;
     }
@@ -43,24 +45,36 @@ function proxyShopify(res) {
     shopifyRes.on('end', function () {
       try {
         JSON.parse(body);
-        res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+        res.writeHead(200, withSecurityHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }));
         res.end(body);
       } catch (e) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.writeHead(500, withSecurityHeaders({ 'Content-Type': 'application/json' }));
         res.end(JSON.stringify({ error: 'Invalid JSON from Shopify', products: [] }));
       }
     });
   });
   req.on('error', function (err) {
     console.error('Shopify fetch error:', err.message);
-    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.writeHead(500, withSecurityHeaders({ 'Content-Type': 'application/json' }));
     res.end(JSON.stringify({ error: 'Failed to fetch products', products: [] }));
   });
   req.end();
 }
 
-const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.json', '.svg', '.txt']);
-const STATIC_ASSET_EXT = new Set(['.css', '.js', '.jpg', '.jpeg', '.png', '.webp', '.svg', '.ico']);
+const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.json', '.svg', '.txt', '.xml']);
+const STATIC_ASSET_EXT = new Set(['.css', '.js', '.jpg', '.jpeg', '.png', '.webp', '.svg', '.ico', '.woff2']);
+
+const SECURITY_HEADERS = {
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
+  'Content-Security-Policy': "default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://sandhyagems.in https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-ancestors 'none';",
+};
+
+function withSecurityHeaders(headers) {
+  return Object.assign({}, SECURITY_HEADERS, headers);
+}
 
 function getCacheHeader(ext) {
   if (STATIC_ASSET_EXT.has(ext)) {
@@ -72,16 +86,21 @@ function getCacheHeader(ext) {
 function sendResponse(req, res, statusCode, headers, data) {
   var ext = (headers['X-Ext'] || '').toLowerCase();
   delete headers['X-Ext'];
+  headers = withSecurityHeaders(headers);
 
   if (COMPRESSIBLE.has(ext)) {
     var acceptEncoding = (req.headers['accept-encoding'] || '');
-    if (acceptEncoding.includes('gzip')) {
-      zlib.gzip(data, function (err, compressed) {
+    var useBrotli = acceptEncoding.includes('br');
+    var useGzip = !useBrotli && acceptEncoding.includes('gzip');
+
+    if (useBrotli || useGzip) {
+      var compress = useBrotli ? zlib.brotliCompress : zlib.gzip;
+      compress(data, function (err, compressed) {
         if (err) {
           res.writeHead(statusCode, headers);
           res.end(data);
         } else {
-          headers['Content-Encoding'] = 'gzip';
+          headers['Content-Encoding'] = useBrotli ? 'br' : 'gzip';
           headers['Vary'] = 'Accept-Encoding';
           res.writeHead(statusCode, headers);
           res.end(compressed);
@@ -102,7 +121,7 @@ function serveFile(filePath, req, res) {
     if (err) {
       fs.readFile(path.join(PUBLIC_DIR, 'index.html'), function (err2, html) {
         if (err2) {
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
+          res.writeHead(404, withSecurityHeaders({ 'Content-Type': 'text/plain' }));
           res.end('Not found');
         } else {
           sendResponse(req, res, 200, {
@@ -133,7 +152,7 @@ const server = http.createServer(function (req, res) {
   var filePath = path.join(PUBLIC_DIR, url === '/' ? 'index.html' : url);
 
   if (!filePath.startsWith(PUBLIC_DIR)) {
-    res.writeHead(403);
+    res.writeHead(403, withSecurityHeaders({ 'Content-Type': 'text/plain' }));
     res.end('Forbidden');
     return;
   }

@@ -96,6 +96,13 @@
     }
   }
 
+  // ===== ESCAPE HTML =====
+  function escapeHtml(str) {
+    return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
   // ===== RENDER PRODUCTS =====
   function renderProducts(products) {
     var grid = document.getElementById('products-grid');
@@ -104,21 +111,23 @@
     products.forEach(function (p) {
       var card = document.createElement('div');
       card.className = 'product-card';
-      card.setAttribute('data-testid', 'product-card-' + (p.id || p.handle));
-      var imgSrc = p.img || optimizeImage((p.images && p.images[0] && p.images[0].src) || '', 400);
-      var price = p.price || formatPrice((p.variants && p.variants[0] && p.variants[0].price) || '0');
-      var productUrl = 'https://sandhyagems.in/products/' + p.handle;
+      var testId = escapeHtml(p.id || p.handle || '');
+      card.setAttribute('data-testid', 'product-card-' + testId);
+      var imgSrc = escapeHtml(p.img || optimizeImage((p.images && p.images[0] && p.images[0].src) || '', 400));
+      var price = escapeHtml(p.price || formatPrice((p.variants && p.variants[0] && p.variants[0].price) || '0'));
+      var title = escapeHtml(p.title || '');
+      var productUrl = 'https://sandhyagems.in/products/' + encodeURIComponent(p.handle || '');
       card.innerHTML =
         '<div class="product-img-wrap">' +
-          '<a href="' + productUrl + '" target="_blank" rel="noopener noreferrer" aria-label="View ' + p.title + ' on Sandhya Gems online store">' +
-            '<img src="' + imgSrc + '" alt="' + p.title + '" class="product-img" loading="lazy" width="400" height="400" decoding="async" />' +
+          '<a href="' + productUrl + '" target="_blank" rel="noopener noreferrer" aria-label="View ' + title + ' on Sandhya Gems online store">' +
+            '<img src="' + imgSrc + '" alt="' + title + '" class="product-img" loading="lazy" width="400" height="400" decoding="async" />' +
           '</a>' +
         '</div>' +
         '<div class="product-info">' +
-          '<h3 class="product-title" title="' + p.title + '">' + p.title + '</h3>' +
+          '<h3 class="product-title" title="' + title + '">' + title + '</h3>' +
           '<p class="product-price">' + price + '</p>' +
           '<div class="product-btn-wrap">' +
-            '<a href="' + productUrl + '" target="_blank" rel="noopener noreferrer" class="product-btn" data-testid="button-buy-' + (p.id || p.handle) + '">' +
+            '<a href="' + productUrl + '" target="_blank" rel="noopener noreferrer" class="product-btn" data-testid="button-buy-' + testId + '">' +
               '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
               'Know More' +
             '</a>' +
